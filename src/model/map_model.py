@@ -17,13 +17,15 @@ class MapModel:
         self.elevation_path = []
         self.elevation_path_length = float('inf')
         self.elevation = 0
-        self.source_lat_long = []
-        self.destination_lat_long = []
+        self.source_lat_long = ox_cnc.get_lat_long(source)
+        self.destination_lat_long = ox_cnc.get_lat_long(destination)
 
     def get_shortest_path(self):
         # TODO : implement get shortest path method
-        self.shortest_path, self.shortest_path_length = g_u.get_shortest_path(self.city_map, self.source_lat_long,
-                                                                              self.destination_lat_long)
+        source_node = ox_cnc.get_graph_nodes(self.city_map, self.source_lat_long[0], self.source_lat_long[1])
+        destination_node = ox_cnc.get_graph_nodes(self.city_map, self.destination_lat_long[0], self.destination_lat_long[1])
+        self.shortest_path, self.shortest_path_length = g_u.get_shortest_path(self.city_map, source_node,
+                                                                              destination_node)
 
     def get_path(self, min_max: str = "max", deviation: float = 0.0):
         # TODO : implement get path method

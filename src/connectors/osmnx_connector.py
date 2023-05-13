@@ -11,7 +11,7 @@ import logging
 # TODO check if needs to be class, depends how handling multithreading
 
 def get_graph_nodes(graph, lat: float, long: float):
-    node, distance = os.distance.nearest_nodes(graph, long, lat, return_dist=True)
+    node, distance = ox.distance.nearest_nodes(graph, long, lat, return_dist=True)
     return node, distance
 
 
