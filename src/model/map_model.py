@@ -46,3 +46,7 @@ class MapModel:
 
         return res
 
+    def store_results(self):
+        # TODO
+        return
+
