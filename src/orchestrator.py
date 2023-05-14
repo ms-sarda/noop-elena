@@ -3,28 +3,28 @@ validate client request params like locations -> get city map ->
 find shortest path -> find shortest path with constraints -> generate map ->
 return details to server """
 
-from connectors.osmnx_connector import get_city_map
-from shortest_path_finder import find_shortest_path_dist, find_shortest_path_with_constraints
+import connectors.misc_utils as misc_utils
+from model.map_model import MapModel
 
 
 class Orchestrator:
 
-    def find_path(self, request):
-        self.validate_request()
-        city = request["source"]["city"]
-        state = request["source"]["state"]
-        map = get_city_map(city, state)
-        # get src and dest lat/long
-        src, dest = None, None
-        shortest_dist = find_shortest_path_dist(map, src, dest)
-        limit = request["limit"]
-        elevation_gain = request["elevation_gain"]
-        required_path = find_shortest_path_with_constraints(map, src, dest, limit, elevation_gain, shortest_dist)
-        return required_path
+    def __init__(self):
+        self.city = None
+        self.state = None
+        self.country = None
+        self.map_model = None
 
-    def validate_request(self, request):
-        # Cannot load graph of state or a country from osmnx as it crashes or takes a long time. 
-        # Limiting size to city
-        if request["source"]["city"] != request["destination"]["city"]:
-            # throw error
-            pass
+    def compute_path(self, source, destination, min_max, vehicle, deviation):
+        parsed_location = misc_utils.parse_location(source)
+        self.city = parsed_location["city"]
+        self.state = parsed_location["state"]
+        self.country = parsed_location["country"]
+
+        # TODO : validate source, destination, city, state, country, vehicle, deviation, min_max
+
+        self.map_model = MapModel(source, destination, self.city, self.state, self.country, vehicle)
+        self.map_model.get_shortest_path()
+        self.map_model.get_path(min_max, deviation)
+
+        return self.map_model.get_results()

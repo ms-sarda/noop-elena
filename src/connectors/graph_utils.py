@@ -27,7 +27,7 @@ def get_shortest_path(city_map: MultiDiGraph, source_node, destination_node):
 
 def get_elevation_path(city_map, source_lat_long, destination_lat_long, min_max, deviation, shortest_path_length):
     # TODO implementation to get final deliverable path
-    return
+    return None, None
 
 
 def build_path(city_map, node_tree, source_node: int, destination_node: int):
