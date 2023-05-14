@@ -1,25 +1,30 @@
+import logging
+import time
+
+import networkx as nx
+import numpy as np
 import osmnx as ox
+import pandas as pd
+import requests
+from osmnx import downloader
+from osmnx import utils
 
 
 def add_elevation_to_graph(graph):
-    try:
-        G = ox.elevation.add_node_elevations_open_elevation(graph)
-        G = ox.elevation.add_edge_grades(G)
-        nc = ox.plot.get_node_colors_by_attr(G, "elevation", cmap="plasma")
-        fig, ax = ox.plot_graph(
-            G, node_color=nc, node_size=20, edge_linewidth=2, edge_color="#333"
-        )
-        return G
-    except ImportError:
-        print("You need a google_elevation_api_key to run this cell.")
+    G = add_node_elevations_open_elevation(graph)
+    G = ox.elevation.add_edge_grades(G)
+    nc = ox.plot.get_node_colors_by_attr(G, "elevation", cmap="plasma")
+    fig, ax = ox.plot_graph(
+        G, node_color=nc, node_size=20, edge_linewidth=2, edge_color="#333"
+    )
+    return G
 
 
 def add_node_elevations_open_elevation(
     G,
-    max_locations_per_batch=350,
-    pause_duration=0,
+    max_locations_per_batch=150,
+    pause_duration=0.3,
     precision=3,
-    url_template="https://api.open-elevation.com/api/v1/lookup?locations={}",
 ):  # pragma: no cover
     """
     Add `elevation` (meters) attribute to each node using a web service.
@@ -57,6 +62,9 @@ def add_node_elevations_open_elevation(
     G : networkx.MultiDiGraph
         graph with node elevation attributes
     """
+
+    url_template = "https://api.open-elevation.com/api/v1/lookup?locations={}"
+
     # make a pandas series of all the nodes' coordinates as 'lat,lng'
     # round coordinates to 5 decimal places (approx 1 meter) to be able to fit
     # in more locations per API call
@@ -69,26 +77,32 @@ def add_node_elevations_open_elevation(
     # break the series of coordinates into chunks of size max_locations_per_batch
     # API format is locations=lat,lng|lat,lng|lat,lng|lat,lng...
     results = []
+    response_json = {}
     for i in range(0, len(node_points), max_locations_per_batch):
         chunk = node_points.iloc[i : i + max_locations_per_batch]
         locations = "|".join(chunk)
-        url = url_template.format(locations, api_key)
+        url = url_template.format(locations)
 
         # check if this request is already in the cache (if global use_cache=True)
         cached_response_json = downloader._retrieve_from_cache(url)
         if cached_response_json is not None:
             response_json = cached_response_json
         else:
-            # request the elevations from the API
-            utils.log(f"Requesting node elevations: {url}")
-            time.sleep(pause_duration)
-            response = requests.get(url)
-            if response.status_code == 200:
-                response_json = response.json()
-                downloader._save_to_cache(url, response_json, response.status_code)
-            else:
+            try:
+                # request the elevations from the API
+                utils.log(f"Requesting node elevations: {url}")
+                time.sleep(pause_duration)
+                response = requests.get(url)
+                if response.status_code == 200:
+                    response_json = response.json()
+                    downloader._save_to_cache(url, response_json, response.status_code)
+            except Exception as e:
+                utils.log(e)
+                utils.log(
+                    f"Server responded with {response.status_code}: {response.reason}"
+                )
                 raise Exception(
-                    f"Server responded with {response.status_code}: {response.reason} \n{response.json()}"
+                    f"Server responded with {response.status_code}: {response.reason}"
                 )
 
         # append these elevation results to the list of all results
@@ -109,4 +123,5 @@ def add_node_elevations_open_elevation(
     nx.set_node_attributes(G, name="elevation", values=df["elevation"].to_dict())
     utils.log("Added elevation data from API to all nodes.")
 
+    print("elevation process completed")
     return G

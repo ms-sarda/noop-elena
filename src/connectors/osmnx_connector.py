@@ -63,3 +63,6 @@ def generate_map_filepath(
     city: str, state: str, country: str = "USA", vehicle: str = "walk"
 ):
     return "./cache/" + city + "_" + state + "_" + country + "_" + vehicle + ".graphml"
+
+
+get_city_map("Amherst", "Massachusetts")
