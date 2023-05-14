@@ -1,14 +1,15 @@
 # import networkx as nx
+import logging
 import os.path
 
+import open_elevation_connector as open_cnc
 import osmnx as ox
-import logging
-
 
 # %matplotlib inline
 # ox.__version__
 
 # TODO check if needs to be class, depends how handling multithreading
+
 
 def get_graph_nodes(graph, lat: float, long: float):
     node, distance = ox.distance.nearest_nodes(graph, long, lat, return_dist=True)
@@ -31,10 +32,13 @@ def get_map_from_cache(city, state, country, vehicle):
 
 def cache_map(G, city: str, state: str, country: str = "USA", vehicle: str = "walk"):
     filepath = generate_map_filepath(city, state, country, vehicle)
+    logging.debug("Caching map @ " + str(filepath))
     ox.io.save_graphml(G, filepath=filepath)
 
 
-def generate_city_map(city: str, state: str, country: str = "USA", vehicle: str = "walk"):
+def generate_city_map(
+    city: str, state: str, country: str = "USA", vehicle: str = "walk"
+):
     # call osmnx lib and generate graph
     place = {"city": city, "state": state, "country": country}
     logging.debug("Generating city map for " + str(place))
@@ -43,15 +47,19 @@ def generate_city_map(city: str, state: str, country: str = "USA", vehicle: str 
 
 
 def get_city_map(city: str, state: str, country: str = "USA", vehicle: str = "walk"):
+    """Returns city map with elevations added from open-elevation"""
     # check in cache, generate if not
     in_cache = True
     city_graph = get_map_from_cache(city, state, country, vehicle)
     if city_graph is None:
         city_graph = generate_city_map(city, state, country, vehicle)
+        city_graph = open_cnc.add_elevation_to_graph(city_graph)
         in_cache = False
         # cache it
     return city_graph, in_cache
 
 
-def generate_map_filepath(city: str, state: str, country: str = "USA", vehicle: str = "walk"):
+def generate_map_filepath(
+    city: str, state: str, country: str = "USA", vehicle: str = "walk"
+):
     return "./cache/" + city + "_" + state + "_" + country + "_" + vehicle + ".graphml"
