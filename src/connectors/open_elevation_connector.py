@@ -11,7 +11,8 @@ from osmnx import utils
 
 
 def add_elevation_to_graph(graph):
-    G = add_node_elevations_open_elevation(graph)
+    G = ox.add_node_elevations_google(graph, "")
+    # add_node_elevations_open_elevation(graph)
     G = ox.elevation.add_edge_grades(G)
     nc = ox.plot.get_node_colors_by_attr(G, "elevation", cmap="plasma")
     fig, ax = ox.plot_graph(
@@ -111,7 +112,7 @@ def add_node_elevations_open_elevation(
     # sanity check that all our vectors have the same number of elements
     if not (len(results) == len(G) == len(node_points)):
         raise Exception(
-            f"Graph has {len(G)} nodes but we received {len(results)} results. \n{response_json}"
+            f"Graph has {len(G)} nodes but we received {len(results)} results."
         )
     else:
         utils.log(f"Graph has {len(G)} nodes and we received {len(results)} results.")
