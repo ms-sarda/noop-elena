@@ -1,3 +1,5 @@
+import osmnx
+
 import connectors.graph_utils as util
 import connectors.osmnx_connector as ox_cnc
 
@@ -12,6 +14,8 @@ class MapModel:
         country: str,
         vehicle: str,
     ):
+        self.elevation_path_elevation = 0
+        self.shortest_path_elevation = 0
         self.city = city
         self.state = state
         self.country = country
@@ -20,10 +24,11 @@ class MapModel:
         if not in_cache:
             ox_cnc.cache_map(self.city_map, city, state, country, vehicle)
         self.shortest_path = []
+        self.shortest_path_debug = []
         self.shortest_path_length = float("inf")
         self.elevation_path = []
+        self.elevation_path_debug = []
         self.elevation_path_length = float("inf")
-        self.elevation = 0
         self.source_lat_long = ox_cnc.get_lat_long(source)
         self.destination_lat_long = ox_cnc.get_lat_long(destination)
 
@@ -35,19 +40,26 @@ class MapModel:
         destination_node = ox_cnc.get_graph_nodes(
             self.city_map, self.destination_lat_long[0], self.destination_lat_long[1]
         )
-        self.shortest_path, self.shortest_path_length = util.get_shortest_path(
+        self.shortest_path, self.shortest_path_length, self.shortest_path_elevation, self.shortest_path_debug = util.get_shortest_path(
             self.city_map, source_node, destination_node
         )
 
     def get_path(self, min_max: str = "max", deviation: float = 0.0):
         # TODO : implement get path method
-        self.elevation_path, self.elevation_path_length = util.get_elevation_path(
+        source_node = ox_cnc.get_graph_nodes(
+            self.city_map, self.source_lat_long[0], self.source_lat_long[1]
+        )
+        destination_node = ox_cnc.get_graph_nodes(
+            self.city_map, self.destination_lat_long[0], self.destination_lat_long[1]
+        )
+        self.elevation_path, self.elevation_path_length, self.elevation_path_elevation, self.elevation_path_debug = util.get_elevation_path(
             self.city_map,
-            self.source_lat_long,
-            self.destination_lat_long,
+            source_node,
+            destination_node,
             min_max,
             deviation,
             self.shortest_path_length,
+            self.shortest_path
         )
 
     def get_results(self):
@@ -58,8 +70,11 @@ class MapModel:
             "destination": [self.destination_lat_long[0], self.destination_lat_long[1]],
             "shortest_path_distance": self.shortest_path_length,
             "elevation_path_distance": self.elevation_path_length,
-            "elevation": self.elevation,
+            "shortest_path_elevation": self.shortest_path_elevation,
+            "elevation_path_elevation": self.elevation_path_elevation,
         }
+
+        osmnx.plot_graph_routes(self.city_map, [self.shortest_path_debug, self.elevation_path_debug], route_colors=["r", "b"])
 
         return res
 
