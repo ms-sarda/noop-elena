@@ -1,0 +1,86 @@
+.input-box-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    font-family: 'Montserrat';
+    color: #b9acac;
+}
+
+.radio-group {
+  align-content: start;
+}
+
+.radio {
+  font-size: 0.8em;
+}
+
+.submit-button {
+  background-color: #A5C097;
+  font-family: 'Montserrat';
+  color: #FFFBE9;
+  border-color: #A5C097;
+  border-radius: 2px;
+}
+
+.submit-button-container{
+  text-align: center;
+}
+
+.input-box {
+    background-color: #FFFBE9;
+    border: 0.5px solid #b9acac;
+    box-shadow: 0 3px 2.2px rgba(0,0,0, 0.08);
+    border-radius: 4px;
+    height: 25px;
+    width: 250px;
+    padding: 0px 5px;
+    outline:none;
+    font-family: 'Montserrat';
+}
+
+.input-header {
+  font-weight: 800;
+  padding-bottom: 10px;
+  padding-top: 20px;
+  font-size: 1.1em;
+}
+
+#source {
+    flex-basis: 45%
+}
+
+#destination {
+    flex-basis: 45%
+}
+
+.slidecontainer {
+    width: 100%; /* Width of the outside container */
+  }
+  
+  /* The slider itself */
+  .slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 25px; /* Specified height */
+    background: #d3d3d3; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+  }
+  
+  .slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+  }
+
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #04AA6D; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+  }
+  
+

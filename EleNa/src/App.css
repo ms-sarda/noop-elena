@@ -1,0 +1,46 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.App-body {
+  background-color: #d7e9c9;
+  background-image: linear-gradient(135deg, #d7e9c9 0%, #ffffff 100%);
+  text-align: initial;
+  padding: 1vw
+}
+
+.App-bg {
+  margin: auto;
+  padding: 1vw;
+  width: 50vw;
+  min-width: 600px;
+  border-radius: 0.5vw;
+  background-color: #FFFBE9;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034);
+} 
+
+.logo {
+  width: 40%;
+  margin:auto;
+  color: black;
+  opacity: 60%;
+  font-family: 'Montserrat';
+  text-align: center;
+}
+
+.logo-main{
+  font-size: 3em;
+  font-weight: 600;
+}
+
+.inputs {
+  margin-top: 8vh;
+}
