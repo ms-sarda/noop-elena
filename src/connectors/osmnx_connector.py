@@ -27,6 +27,7 @@ def get_map_from_cache(city, state, country, vehicle):
     if not os.path.isfile(filepath):
         return None
     g = ox.io.load_graphml(filepath=filepath)
+    print("City map loaded from cache")
     return g
 
 
@@ -43,6 +44,7 @@ def generate_city_map(
     place = {"city": city, "state": state, "country": country}
     logging.debug("Generating city map for " + str(place))
     G = ox.graph_from_place(place, network_type=vehicle, truncate_by_edge=True)
+    print("City map generated")
     return G
 
 
@@ -62,4 +64,14 @@ def get_city_map(city: str, state: str, country: str = "USA", vehicle: str = "wa
 def generate_map_filepath(
     city: str, state: str, country: str = "USA", vehicle: str = "walk"
 ):
-    return "./cache/" + city + "_" + state + "_" + country + "_" + vehicle + ".graphml"
+    return (
+        "./graphs_cache/"
+        + city
+        + "_"
+        + state
+        + "_"
+        + country
+        + "_"
+        + vehicle
+        + ".graphml"
+    )

@@ -28,7 +28,7 @@ def get_shortest_path(city_map: MultiDiGraph, source_node, destination_node):
     shortest_path, path = build_path(city_map, shortest_lengths, source_node[0], destination_node[0])
     shortest_elevation = shortest_lengths[destination_node[0]][2]
     shortest_path = reduce_path(shortest_path)
-
+    print("Calculated shortest path")
     return shortest_path, shortest_path_length, shortest_elevation, path
 
 
@@ -67,7 +67,7 @@ def get_elevation_path(city_map, source_node, destination_node, min_max, deviati
     shortest_path, shortest_path_debug = build_path(city_map, shortest_lengths, source_node[0], destination_node[0])
     shortest_path = reduce_path(shortest_path)
     # osmnx.plot_graph_route(city_map, shortest_path)
-
+    print("Calculated elevation path")
     return shortest_path, shortest_path_length_result, shortest_elevation, shortest_path_debug
 
 

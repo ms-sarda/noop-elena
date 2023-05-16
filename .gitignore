@@ -1,3 +1,8 @@
+# vscode files and cache 
+.vscode/
+cache/
+src/cache/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

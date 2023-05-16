@@ -1,4 +1,5 @@
 import logging
+import os
 import time
 
 import networkx as nx
@@ -6,25 +7,28 @@ import numpy as np
 import osmnx as ox
 import pandas as pd
 import requests
-from osmnx import downloader
-from osmnx import utils
+from osmnx import downloader, utils
 
 
 def add_elevation_to_graph(graph):
-    G = ox.add_node_elevations_google(graph, "")
-    # add_node_elevations_open_elevation(graph)
+    api_key = os.getenv("GOOGLE_API_KEY", None)
+    if api_key is None:
+        G = add_node_elevations_open_elevation(graph)
+    else:
+        G = ox.add_node_elevations_google(graph, api_key)
     G = ox.elevation.add_edge_grades(G)
     nc = ox.plot.get_node_colors_by_attr(G, "elevation", cmap="plasma")
     fig, ax = ox.plot_graph(
         G, node_color=nc, node_size=20, edge_linewidth=2, edge_color="#333"
     )
+    print("Elevations added to city map")
     return G
 
 
 def add_node_elevations_open_elevation(
     G,
-    max_locations_per_batch=150,
-    pause_duration=0.3,
+    max_locations_per_batch=180,
+    pause_duration=0.02,
     precision=3,
 ):  # pragma: no cover
     """
@@ -64,6 +68,7 @@ def add_node_elevations_open_elevation(
         graph with node elevation attributes
     """
 
+    print("Adding elevations to city map using open-elevation API")
     url_template = "https://api.open-elevation.com/api/v1/lookup?locations={}"
 
     # make a pandas series of all the nodes' coordinates as 'lat,lng'
@@ -94,9 +99,9 @@ def add_node_elevations_open_elevation(
                 utils.log(f"Requesting node elevations: {url}")
                 time.sleep(pause_duration)
                 response = requests.get(url)
-                if response.status_code == 200:
-                    response_json = response.json()
-                    downloader._save_to_cache(url, response_json, response.status_code)
+                # if response.status_code == 200:
+                response_json = response.json()
+                downloader._save_to_cache(url, response_json, response.status_code)
             except Exception as e:
                 utils.log(e)
                 utils.log(
@@ -124,5 +129,4 @@ def add_node_elevations_open_elevation(
     nx.set_node_attributes(G, name="elevation", values=df["elevation"].to_dict())
     utils.log("Added elevation data from API to all nodes.")
 
-    print("elevation process completed")
     return G
