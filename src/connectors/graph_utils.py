@@ -19,7 +19,10 @@ def get_shortest_path(city_map: MultiDiGraph, source_node, destination_node):
             current_cost = distance + distance_next_node
             elevation_next_node = city_map.nodes[next_node]['elevation']
             elevation_curr_node = city_map.nodes[curr_node]['elevation']
-            net_elevation = elevation + (elevation_next_node - elevation_curr_node)
+            if (elevation_next_node - elevation_curr_node) > 0:
+                net_elevation = elevation + (elevation_next_node - elevation_curr_node)
+            else:
+                net_elevation = elevation
             if next_node not in shortest_lengths.keys() or current_cost < shortest_lengths[next_node][0]:
                 shortest_lengths[next_node] = (current_cost, curr_node, net_elevation)
                 heapq.heappush(unvisitied, (current_cost, net_elevation, next_node))
@@ -53,7 +56,16 @@ def get_elevation_path(city_map, source_node, destination_node, min_max, deviati
             _, next_node, distance_next_node = edge
             elevation_next_node = city_map.nodes[next_node]['elevation']
             elevation_curr_node = city_map.nodes[curr_node]['elevation']
-            net_elevation = elevation + (elevation_next_node - elevation_curr_node)
+            if (elevation_next_node - elevation_curr_node) > 0:
+                if min_max == "max":
+                    net_elevation = -1 * elevation + (elevation_next_node - elevation_curr_node)
+                else:
+                    net_elevation = elevation + (elevation_next_node - elevation_curr_node)
+            else:
+                if min_max == "max":
+                    net_elevation = -1 * elevation
+                else:
+                    net_elevation = -1 * elevation
             current_cost = distance + distance_next_node
             if next_node not in shortest_lengths.keys() or current_cost < shortest_lengths[next_node][0]:
                 shortest_lengths[next_node] = (current_cost, curr_node, net_elevation)
