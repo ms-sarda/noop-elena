@@ -65,7 +65,7 @@ def get_elevation_path(city_map, source_node, destination_node, min_max, deviati
                 if min_max == "max":
                     net_elevation = -1 * elevation
                 else:
-                    net_elevation = -1 * elevation
+                    net_elevation = elevation
             current_cost = distance + distance_next_node
             if next_node not in shortest_lengths.keys() or current_cost < shortest_lengths[next_node][0]:
                 shortest_lengths[next_node] = (current_cost, curr_node, net_elevation)
