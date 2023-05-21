@@ -12,5 +12,20 @@
                 "shortest_path_elevation":  62.82799999999997
             }
         }
+    ],
+    "get_path": [
+        {
+            "input": {
+                "source": "129 Brittany Manor Drive, Amherst, MA, USA",
+                "destination": "667 N Pleasant St, Amherst, MA, USA",
+                "vehicle": "walk",
+                "min_max": "max",
+                "deviation": 150
+            },
+            "output": {
+                "elevation_path_length": 60131.57600000005,
+                "elevation_path_elevation": 922.5360000000006
+            }
+        }
     ]
 }
