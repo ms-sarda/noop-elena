@@ -11,7 +11,7 @@ def map():
         "667 N Pleasant St, Amherst, MA, USA",
         "max",
         "walk",
-        200,
+        150,
     )
     print("source: ", results["source"])
     print("destination: ", results["destination"])
