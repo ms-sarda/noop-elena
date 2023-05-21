@@ -82,11 +82,11 @@ class MapModel:
             "elevation_path_elevation": self.elevation_path_elevation,
         }
 
-        osmnx.plot_graph_routes(
-            self.city_map,
-            [self.shortest_path_debug, self.elevation_path_debug],
-            route_colors=["r", "b"],
-        )
+        # osmnx.plot_graph_routes(
+        #     self.city_map,
+        #     [self.shortest_path_debug, self.elevation_path_debug],
+        #     route_colors=["r", "b"],
+        # )
 
         return res
 
