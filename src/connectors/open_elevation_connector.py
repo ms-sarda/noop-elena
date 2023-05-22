@@ -81,7 +81,7 @@ def add_node_elevations_open_elevation(
         graph with node elevation attributes
     """
 
-    print("Adding elevations to city map using open-elevation API")
+    logging.info("Adding elevations to city map using open-elevation API")
     url_template = "https://api.open-elevation.com/api/v1/lookup?locations={}"
 
     # make a pandas series of all the nodes' coordinates as 'lat,lng'

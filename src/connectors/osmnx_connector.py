@@ -152,10 +152,14 @@ def get_city_map(city: str, state: str, country: str = "USA", vehicle: str = "wa
                  Returns map of the city
     """
     city_graph = get_map_from_cache(city, state, country, vehicle)
+
     if city_graph is None:
+        logging.info("Did not find Graph in cache. Generating graph")
         city_graph = generate_city_map(city, state, country, vehicle)
         city_graph = open_cnc.add_elevation_to_graph(city_graph)
         cache_map(city_graph, city, state, country, vehicle)
+    else:
+        logging.info("Found Graph in cache. Generating graph")
     return city_graph
 
 

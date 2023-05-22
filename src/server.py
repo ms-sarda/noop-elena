@@ -26,7 +26,7 @@ def get_parameters(json):
         json["source"],
         json["destination"],
         json["min_max"],
-        json["deviation"],
+        int(json["deviation"]),
         json["transport"],
     )
 
@@ -101,14 +101,13 @@ if __name__ == "__main__":
     logging.info(" Starting server on 0.0.0.0:8080")
     app.run(host="0.0.0.0", port=8000, debug=True)
 
-
 # FOR DEVELOPMENT AND DEBUGGING ONLY
-def get_path():
+def get_elevation_path():
     """
     A method for debugging the end to end functionality of the service without deploying the server
     """
-    m = Orchestrator()
-    results = m.compute_path(
+    orchestrator = Orchestrator()
+    results = orchestrator.compute_path(
         "129 Brittany Manor Drive, Amherst, MA, USA",
         "667 N Pleasant St, Amherst, MA, USA",
         "max",
