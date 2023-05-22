@@ -1,5 +1,5 @@
 import connectors.utils as utils
-from model.map_model import MapModel
+from model.path_finder import PathFinder
 
 
 class Orchestrator:
@@ -10,7 +10,7 @@ class Orchestrator:
     """
 
     def __init__(self):
-        self.map_model = None
+        self.path_finder = None
 
     def compute_path(self, source, destination, min_max, transport, deviation):
         """
@@ -36,9 +36,9 @@ class Orchestrator:
             src_city_details = utils.parse_location(source)
             dest_city_details = utils.parse_location(destination)
             self.validate_src_dest(src_city_details, dest_city_details)
+            return self.get_path(source, destination, min_max, transport, deviation)
         except Exception as e:
             return {"error": str(e)}
-        return self.get_path(source, destination, min_max, transport, deviation)
 
     def validate_input(self, source, destination, min_max, transport, deviation):
         """Validates input values for all the request params.
@@ -101,7 +101,7 @@ class Orchestrator:
         json : Details of shortest and elevated path - directions, distance,
         elevation, source and destination lat-long
         """
-        self.map_model = MapModel(src, dest, transport)
+        self.path_finder = PathFinder(src, dest, transport)
         (
             self.source_lat_long,
             self.destination_lat_long,
@@ -109,13 +109,16 @@ class Orchestrator:
             self.shortest_path_length,
             self.shortest_path_elevation,
             _,
-        ) = self.map_model.get_shortest_path()
+        ) = self.path_finder.get_shortest_path()
         (
             self.elevation_path,
             self.elevation_path_length,
             self.elevation_path_elevation,
             _,
-        ) = self.map_model.get_path(min_max, deviation)
+        ) = self.path_finder.get_elevation_path(min_max, deviation)
+        import pdb
+
+        pdb.set_trace()
         return self.get_results()
 
     def get_results(self):
