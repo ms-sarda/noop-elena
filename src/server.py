@@ -94,8 +94,8 @@ def get_directions():
     )
 
 
-# if __name__ == "__main__":
-# app.run(host="0.0.0.0", port=8000, debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000, debug=True)
 
 
 # FOR DEVELOPMENT AND DEBUGGING ONLY
@@ -117,6 +117,3 @@ def get_path():
     print("elevation_path_distance: ", results["elevation_path_distance"])
     print("shortest_path_elevation: ", results["shortest_path_elevation"])
     print("elevation_path_elevation: ", results["elevation_path_elevation"])
-
-
-get_path()

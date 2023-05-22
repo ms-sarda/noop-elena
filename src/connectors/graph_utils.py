@@ -18,12 +18,10 @@ def get_shortest_path(city_map: MultiDiGraph, source_node, destination_node):
     -------
 
     """
-    # TODO Djikstra's implementation
-
-    #Check if source and destination nodes are the same
+    # Check if source and destination nodes are the same
     if source_node == destination_node:
         return [], 0, 0, []
-    
+
     unvisitied = []
     # distance elevation node
     heapq.heappush(unvisitied, (0, 0, source_node[0]))
@@ -52,7 +50,8 @@ def get_shortest_path(city_map: MultiDiGraph, source_node, destination_node):
     return shortest_path, shortest_path_length, shortest_elevation, path
 
 
-def get_elevation_path(city_map: MultiDiGraph, source_node, destination_node, min_max: str, deviation: int, shortest_path_length: int):
+def get_elevation_path(city_map: MultiDiGraph, source_node, destination_node, min_max: str, deviation: int,
+                       shortest_path_length: int):
     """
 
     Parameters
