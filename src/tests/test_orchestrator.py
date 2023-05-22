@@ -91,7 +91,6 @@ def test_orchestrator_compute_path():
     transportation = "walk"
 
     results = orchestrator.compute_path(source, destination, min_max, transportation, deviation)
-    print(results)
     assert results["source"] == [42.349458, -72.528342]
     assert results["destination"] == [42.3937079566189, -72.5259946134036]
     assert results["shortest_path_distance"] == 5437.999
