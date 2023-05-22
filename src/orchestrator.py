@@ -1,8 +1,3 @@
-""" receive client request -> preferably start a thread -> 
-validate client request params like locations -> get city map -> 
-find shortest path -> find shortest path with constraints -> generate map ->
-return details to server """
-
 import connectors.misc_utils as misc_utils
 from model.map_model import MapModel
 

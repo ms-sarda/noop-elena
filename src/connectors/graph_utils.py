@@ -1,11 +1,23 @@
 import heapq
 import math
 
-import osmnx
 from networkx import MultiDiGraph
 
 
 def get_shortest_path(city_map: MultiDiGraph, source_node, destination_node):
+    """
+
+    Parameters
+    ----------
+    city_map : MultiDiGraph
+
+    source_node
+    destination_node
+
+    Returns
+    -------
+
+    """
     # TODO Djikstra's implementation
     unvisitied = []
     # distance elevation node
@@ -31,12 +43,25 @@ def get_shortest_path(city_map: MultiDiGraph, source_node, destination_node):
     shortest_path, path = build_path(city_map, shortest_lengths, source_node[0], destination_node[0])
     shortest_elevation = shortest_lengths[destination_node[0]][2]
     shortest_path = reduce_path(shortest_path)
-    print("Calculated shortest path")
     return shortest_path, shortest_path_length, shortest_elevation, path
 
 
-def get_elevation_path(city_map, source_node, destination_node, min_max, deviation, shortest_path_length, path):
-    # TODO implementation to get final deliverable path
+def get_elevation_path(city_map: MultiDiGraph, source_node, destination_node, min_max: str, deviation: int, shortest_path_length: int):
+    """
+
+    Parameters
+    ----------
+    city_map
+    source_node
+    destination_node
+    min_max
+    deviation
+    shortest_path_length
+
+    Returns
+    -------
+
+    """
     unvisitied = []
     # elevation distance node
     heapq.heappush(unvisitied, (0, 0, source_node[0]))
@@ -84,6 +109,26 @@ def get_elevation_path(city_map, source_node, destination_node, min_max, deviati
 
 
 def build_path(city_map, node_tree, source_node: int, destination_node: int):
+    """
+    Traverses the inverted tree to build a list that includes the path from the destination to the source node.
+    Then reverses the list and parses the latitude and longitude for each node in the path
+
+    Parameters
+    ----------
+    city_map : OSMNX graph for the city
+    node_tree : Inverted tree with a node pointing to its parent node and the distance between them
+    source_node : Source node from which the path starts
+    destination_node : Destination node where the path ends
+
+    Returns
+    -------
+
+    final_path : list
+                 List of Latitudes and Longitudes acting as waypoints
+    path : list
+           List of OpenStreetMap Node IDs acting as waypoints
+
+    """
     path = [destination_node]
     curr_node = destination_node
     while True:
@@ -95,9 +140,6 @@ def build_path(city_map, node_tree, source_node: int, destination_node: int):
 
     path.reverse()
 
-    # osmnx.plot_graph_route(city_map, path)
-
-    # osmnx.plot.plot_graph_route(city_map, path)
     final_path = []
     for i in path:
         final_path.append((city_map.nodes[i]['y'], city_map.nodes[i]['x']))
@@ -105,6 +147,19 @@ def build_path(city_map, node_tree, source_node: int, destination_node: int):
 
 
 def reduce_path(path):
+    """
+    Reduces the path i.e. list of waypoints to 25 or lower waypoints
+
+    Parameters
+    ----------
+    path : A list of latitudes and longitudes for the waypoints in the path
+
+    Returns
+    -------
+
+    new_path : list
+               A list with 25 or fewer latitudes and longitudes from the original path
+    """
     # TODO change this implementation
     if len(path) <= 25:
         return path

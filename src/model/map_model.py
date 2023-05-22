@@ -67,7 +67,6 @@ class MapModel:
             min_max,
             deviation,
             self.shortest_path_length,
-            self.shortest_path,
         )
 
     def get_results(self):
