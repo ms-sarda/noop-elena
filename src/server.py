@@ -6,6 +6,7 @@ import logging
 app = Flask(__name__)
 CORS(app)
 
+
 def get_parameters(json):
     """
     Parses the input JSON for parameters
@@ -101,6 +102,7 @@ def get_directions():
 if __name__ == "__main__":
     logging.info(" Starting server on 0.0.0.0:8080")
     app.run(host="0.0.0.0", port=8000, debug=True)
+
 
 # FOR DEVELOPMENT AND DEBUGGING ONLY
 def get_elevation_path():
