@@ -1,4 +1,3 @@
-# import networkx as nx
 import logging
 import os.path
 

@@ -11,18 +11,29 @@ from osmnx import downloader, utils
 
 
 def add_elevation_to_graph(graph):
-    api_key = os.getenv("GOOGLE_API_KEY", None)
-    if api_key is None:
-        G = add_node_elevations_open_elevation(graph)
-    else:
-        G = ox.add_node_elevations_google(graph, api_key)
-    G = ox.elevation.add_edge_grades(G)
-    nc = ox.plot.get_node_colors_by_attr(G, "elevation", cmap="plasma")
-    fig, ax = ox.plot_graph(
-        G, node_color=nc, node_size=20, edge_linewidth=2, edge_color="#333"
-    )
-    print("Elevations added to city map")
-    return G
+    """
+    Adds elevation information to graph nodes. If API key is provided, fetches informatin from Google Elevation API.
+    Otherwise from Open Elevation API
+
+    Parameters
+    ----------
+    graph : MultiDiGraph
+
+    Returns
+    -------
+    G : MultiDiGraph
+
+    """
+    try:
+        api_key = os.getenv("GOOGLE_API_KEY", None)
+        if api_key is None:
+            G = add_node_elevations_open_elevation(graph)
+        else:
+            G = ox.add_node_elevations_google(graph, api_key)
+        G = ox.elevation.add_edge_grades(G)
+        return G
+    except Exception as e:
+        raise Exception("Error adding elevation information", e)
 
 
 def add_node_elevations_open_elevation(
