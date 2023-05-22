@@ -18,7 +18,7 @@ def get_parameters(json):
     destination : The destination address to which the user want to plot the path. The address must be in the same format as the source. The destination must also be in the same City as the source.
     deviation : The allowed deviation of the path length from the shortest path. This value is in per cents i.e. a value of 120 means that 120% of the length of the shortest path is allowed for the new path's length
     min_max : "min" or "max" depending on whether we want to minimise or maximise the elevation
-    vehicle : Mode of transport. Values accepted are "bike", "drive" or "walk"
+    transport : Mode of transport. Values accepted are "bike", "drive" or "walk"
 
     """
     return (
@@ -26,7 +26,7 @@ def get_parameters(json):
         json["destination"],
         json["min_max"],
         json["deviation"],
-        json["vehicle"],
+        json["transport"],
     )
 
 
@@ -48,7 +48,7 @@ def get_directions():
 
     - **min_max:** 'min' or 'max' depending on whether we want to minimise or maximise the elevation
 
-    - **vehicle:** Mode of transport. Values accepted are 'bike', 'drive' or 'walk'
+    - **transport:** Mode of transport. Values accepted are 'bike', 'drive' or 'walk'
 
     An example JSON is:
 
@@ -59,7 +59,7 @@ def get_directions():
             "destination": "667 N Pleasant St, Amherst, MA, USA",
             "deviation": 150,
             "min_max": "min",
-            "vehicle": "walk"
+            "transport": "walk"
         }
 
     Returns
@@ -84,13 +84,13 @@ def get_directions():
 
     - **elevation_path_elevation:** Elevation gain between the source and the destination when taking the new elevated path
     """
-    source, destination, min_max_route, percent_deviation, vehicle = get_parameters(
+    source, destination, min_max_route, percent_deviation, transport = get_parameters(
         request.json
     )
     orchestrator = Orchestrator()
 
     return orchestrator.compute_path(
-        source, destination, min_max_route, vehicle, percent_deviation
+        source, destination, min_max_route, transport, percent_deviation
     )
 
 
