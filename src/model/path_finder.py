@@ -125,11 +125,11 @@ class PathFinder:
 
         shortest_path_length = shortest_lengths[destination_node[0]][0]
         # print(shortest_lengths)
-        shortest_path, path = build_path(
+        shortest_path, path = self.build_path(
             city_map, shortest_lengths, source_node[0], destination_node[0]
         )
         shortest_elevation = shortest_lengths[destination_node[0]][2]
-        shortest_path = reduce_path(shortest_path)
+        shortest_path = self.reduce_path(shortest_path)
         return shortest_path, shortest_path_length, shortest_elevation, path
 
     def get_elevation_path_using_modified_dijkstra(
@@ -231,7 +231,7 @@ class PathFinder:
             shortest_path_debug,
         )
 
-    def build_path(city_map, node_tree, source_node: int, destination_node: int):
+    def build_path(self, city_map, node_tree, source_node: int, destination_node: int):
         """
         Traverses the inverted tree to build a list that includes the path from the destination to the source node.
         Then reverses the list and parses the latitude and longitude for each node in the path
@@ -266,7 +266,7 @@ class PathFinder:
             final_path.append((city_map.nodes[i]["y"], city_map.nodes[i]["x"]))
         return final_path, path
 
-    def reduce_path(path):
+    def reduce_path(self, path):
         """
         Reduces the path i.e. list of waypoints to 25 or lower waypoints as
         Google only allows using of 25 points to plot the map.
