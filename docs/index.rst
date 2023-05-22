@@ -10,7 +10,7 @@ Welcome to Elena-Noop's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+   modules
 
 Indices and tables
 ==================
