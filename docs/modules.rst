@@ -8,4 +8,3 @@ src
    model
    orchestrator
    server
-   util

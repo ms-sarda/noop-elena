@@ -12,14 +12,6 @@ connectors.graph\_utils module
    :undoc-members:
    :show-inheritance:
 
-connectors.misc\_utils module
------------------------------
-
-.. automodule:: connectors.misc_utils
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 connectors.open\_elevation\_connector module
 --------------------------------------------
 
@@ -32,6 +24,14 @@ connectors.osmnx\_connector module
 ----------------------------------
 
 .. automodule:: connectors.osmnx_connector
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+connectors.utils module
+-----------------------
+
+.. automodule:: connectors.utils
    :members:
    :undoc-members:
    :show-inheritance:
