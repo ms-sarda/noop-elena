@@ -28,8 +28,10 @@ def add_elevation_to_graph(graph):
         api_key = os.getenv("GOOGLE_API_KEY", None)
         if api_key is None:
             G = add_node_elevations_open_elevation(graph)
+            logging.info("Fetching Elevation information from Open Elevation")
         else:
             G = ox.add_node_elevations_google(graph, api_key)
+            logging.info("Found API_KEY. Fetching Elevation information from Google Elevation API")
         G = ox.elevation.add_edge_grades(G)
         return G
     except Exception as e:

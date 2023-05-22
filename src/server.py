@@ -1,5 +1,6 @@
 from orchestrator import Orchestrator
 from flask import Flask, request
+import logging
 
 app = Flask(__name__)
 
@@ -84,6 +85,8 @@ def get_directions():
 
     - **elevation_path_elevation:** Elevation gain between the source and the destination when taking the new elevated path
     """
+
+    logging.info("0.0.0.0:8000 : POST /get_directions", request.json)
     source, destination, min_max_route, percent_deviation, transport = get_parameters(
         request.json
     )
@@ -95,6 +98,7 @@ def get_directions():
 
 
 if __name__ == "__main__":
+    logging.info(" Starting server on 0.0.0.0:8080")
     app.run(host="0.0.0.0", port=8000, debug=True)
 
 
