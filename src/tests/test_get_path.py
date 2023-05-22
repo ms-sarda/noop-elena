@@ -54,7 +54,7 @@ def test_get_path_min_elevation():
     min_max = "min"
     deviation = 150
 
-    deviated_path, deviated_path_length_result, deviated_elevation, deviated_path_debug = get_elevation_path(city_map, source_node, destination_node, min_max, deviation, shortest_path_length, path)
+    deviated_path, deviated_path_length_result, deviated_elevation, deviated_path_debug = get_elevation_path(city_map, source_node, destination_node, min_max, deviation, shortest_path_length)
 
     #The deviated path should be A -> B -> C -> D to minimize elevation
     assert deviated_path_debug == ['A', 'B', 'C', 'D']
@@ -79,7 +79,7 @@ def test_get_path_same_elevation():
     min_max = "min"
     deviation = 150
 
-    deviated_path, deviated_path_length_result, deviated_elevation, deviated_path_debug = get_elevation_path(city_map, source_node, destination_node, min_max, deviation, shortest_path_length, path)
+    deviated_path, deviated_path_length_result, deviated_elevation, deviated_path_debug = get_elevation_path(city_map, source_node, destination_node, min_max, deviation, shortest_path_length)
     print(deviated_path, deviated_path_length_result, deviated_elevation, deviated_path_debug)
 
     #The deviated path should be A -> E -> D to minize distance as the elevation is the same
@@ -104,7 +104,7 @@ def test_get_path_max_elevation():
     min_max = "max"
     deviation = 150
 
-    deviated_path, deviated_path_length_result, deviated_elevation, deviated_path_debug = get_elevation_path(city_map, source_node, destination_node, min_max, deviation, shortest_path_length, path)
+    deviated_path, deviated_path_length_result, deviated_elevation, deviated_path_debug = get_elevation_path(city_map, source_node, destination_node, min_max, deviation, shortest_path_length)
 
     #The deviated path should be A -> B -> C -> D to minimize elevation
     assert deviated_path_debug == ['A', 'B', 'C', 'D']
