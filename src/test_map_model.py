@@ -1,5 +1,5 @@
 from model.map_model import MapModel
-import connectors.misc_utils as misc_utils
+import connectors.utils as utils
 import json
 
 
@@ -10,7 +10,7 @@ def test_get_shortest_path():
     source_input = test_case["input"]["source"]
     destination_input = test_case["input"]["destination"]
 
-    parsed_location = misc_utils.parse_location(source_input)
+    parsed_location = utils.parse_location(source_input)
     city = parsed_location["city"]
     state = parsed_location["state"]
     country = parsed_location["country"]
@@ -32,7 +32,7 @@ def test_get_path():
     source_input = test_case["input"]["source"]
     destination_input = test_case["input"]["destination"]
 
-    parsed_location = misc_utils.parse_location(source_input)
+    parsed_location = utils.parse_location(source_input)
     city = parsed_location["city"]
     state = parsed_location["state"]
     country = parsed_location["country"]
