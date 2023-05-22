@@ -12,37 +12,96 @@ class Orchestrator:
     def __init__(self):
         self.map_model = None
 
-    def compute_path(self, source, destination, min_max, vehicle, deviation):
+    def compute_path(self, source, destination, min_max, transport, deviation):
         """
         Takes the user input and calculates the shortest as well as the
         elevated path with constraints.
+
+        Parameters
+        ----------
+        source : The source address from which the user want to plot the path. The address must be the street address of the place, in the format Street Address, City, State, Country.
+        destination : The destination address to which the user want to plot the path. The address must be in the same format as the source. The destination must also be in the same City as the source.
+        deviation : The allowed deviation of the path length from the shortest path. This value is in per cents i.e. a value of 120 means that 120% of the length of the shortest path is allowed for the new path's length
+        min_max : "min" or "max" depending on whether we want to minimise or maximise the elevation
+        transport : Mode of transport. Values accepted are "bike", "drive" or "walk"
+
+        Returns
+        -------
+        json : Details of shortest and elevated path - directions, distance,
+        elevation, source and destination lat-long
         """
         print("Starting to compute path with constraints")
-        src_city_details = utils.parse_location(source)
-        dest_city_details = utils.parse_location(destination)
-        error = self.validate_src_dest(src_city_details, dest_city_details)
-        if error is not None:
-            return {"error": error}  # TODO interpret in UI
-        # TODO : validate vehicle, deviation, min_max - these are dropdowns right? How can they be wrong?
-        return self.get_path(source, destination, min_max, vehicle, deviation)
+        try:
+            self.validate_input(source, destination, min_max, transport, deviation)
+            src_city_details = utils.parse_location(source)
+            dest_city_details = utils.parse_location(destination)
+            self.validate_src_dest(src_city_details, dest_city_details)
+        except Exception as e:
+            return {"error": str(e)}
+        return self.get_path(source, destination, min_max, transport, deviation)
+
+    def validate_input(self, source, destination, min_max, transport, deviation):
+        """Validates input values for all the request params.
+        Raises an exception if input is incorrect
+
+        Parameters
+        ----------
+        source : The source address
+        destination : The destination address
+        deviation : The allowed deviation of the path length from the shortest path
+        min_max : "min" or "max"
+        transport : Mode of transport - "bike", "drive" or "walk"
+        """
+        error = "Please enter correct value."
+        if source is None or source == "":
+            raise ValueError("Source cannot be Null." + error)
+        if destination is None or destination == "":
+            raise ValueError("Destination cannot be Null." + error)
+        if min_max not in ["min", "max"]:
+            raise ValueError(
+                "Elevation gain can only be maximized or minimized." + error
+            )
+        if transport not in ["walk", "bike", "drive"]:
+            raise ValueError("Transport can be walk, bike or drive." + error)
+        if deviation not in range(100, 200):
+            raise ValueError("Deviation should lie between 100 and 200." + error)
 
     def validate_src_dest(self, src, dest):
         """
         Validates if the source and destination lie in the same city.
+        Raises an exception if input is incorrect
+
+        Parameters
+        ----------
+        source : The source address
+        destination : The destination address
         """
         if src != dest:
             error = "Source and Destination not in the same city. Cannot generate path"
             print(error)
-            return error
+            raise ValueError(error)
         else:
             return None
 
-    def get_path(self, src, dest, min_max, vehicle, deviation):
+    def get_path(self, src, dest, min_max, transport, deviation):
         """
         Calls the Map Model to generate the shortest and elevated path
         between source and destination.
+
+        Parameters
+        ----------
+        source : The source address
+        destination : The destination address
+        deviation : The allowed deviation of the path length from the shortest path
+        min_max : "min" or "max"
+        transport : Mode of transport - "bike", "drive" or "walk"
+
+        Returns
+        -------
+        json : Details of shortest and elevated path - directions, distance,
+        elevation, source and destination lat-long
         """
-        self.map_model = MapModel(src, dest, vehicle)
+        self.map_model = MapModel(src, dest, transport)
         (
             self.source_lat_long,
             self.destination_lat_long,
@@ -60,6 +119,12 @@ class Orchestrator:
         return self.get_results()
 
     def get_results(self):
+        """Creates a json consisting of all values required by the UI to plot the graphs
+        Returns
+        -------
+        json : Details of shortest and elevated path - directions, distance,
+        elevation, source and destination lat-long
+        """
         res = {
             "shortest_path_directions": self.shortest_path,
             "elevation_path_directions": self.elevation_path,
