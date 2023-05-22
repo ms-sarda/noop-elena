@@ -21,11 +21,13 @@ def parse_location(location: str):
     try:
         location_parsed = location.split(",")
         result = {
-            "city": location_parsed[1],
-            "state": location_parsed[2],
-            "country": location_parsed[3],
+            "city": location_parsed[1].strip(),
+            "state": location_parsed[2].strip(),
+            "country": location_parsed[3].strip(),
         }
         return result
-    except Exception as e:
-        raise Exception("Error : Error parsing location. Ensure that the location is in a Street Address, City, "
-                        "State, Country format")
+    except Exception:
+        raise Exception(
+            "Error : Error parsing location. Ensure that the location is in a Street Address, City, "
+            "State, Country format"
+        )

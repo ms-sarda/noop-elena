@@ -94,17 +94,13 @@ def get_directions():
     )
 
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, debug=True)
-
-
 # FOR DEVELOPMENT AND DEBUGGING ONLY
-def get_path():
+def get_elevation_path():
     """
     A method for debugging the end to end functionality of the service without deploying the server
     """
-    m = Orchestrator()
-    results = m.compute_path(
+    orchestrator = Orchestrator()
+    results = orchestrator.compute_path(
         "129 Brittany Manor Drive, Amherst, MA, USA",
         "667 N Pleasant St, Amherst, MA, USA",
         "max",
@@ -117,3 +113,8 @@ def get_path():
     print("elevation_path_distance: ", results["elevation_path_distance"])
     print("shortest_path_elevation: ", results["shortest_path_elevation"])
     print("elevation_path_elevation: ", results["elevation_path_elevation"])
+
+
+if __name__ == "__main__":
+    # app.run(host="0.0.0.0", port=8000, debug=True)
+    get_elevation_path()
