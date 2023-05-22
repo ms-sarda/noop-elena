@@ -18,7 +18,6 @@ def parse_location(location: str):
              Dictionary with, city, state and country information
 
     """
-    result = {}
     try:
         location_parsed = location.split(",")
         result = {
