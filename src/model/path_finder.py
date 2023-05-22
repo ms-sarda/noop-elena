@@ -10,6 +10,8 @@ import connectors.utils as utils
 
 
 class PathFinder:
+    """Class to generate the shortest and elevated paht based on user constraints"""
+
     def __init__(
         self,
         source: str,
@@ -66,10 +68,6 @@ class PathFinder:
             deviation,
             self.shortest_path_length,
         )
-
-    def store_results(self):
-        # TODO
-        return
 
     def get_shortest_path_using_dijkstra(
         self, city_map: MultiDiGraph, source_node, destination_node

@@ -116,9 +116,6 @@ class Orchestrator:
             self.elevation_path_elevation,
             _,
         ) = self.path_finder.get_elevation_path(min_max, deviation)
-        import pdb
-
-        pdb.set_trace()
         return self.get_results()
 
     def get_results(self):
