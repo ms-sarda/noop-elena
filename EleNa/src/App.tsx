@@ -26,7 +26,7 @@ function App() {
 
   const onSubmit = async (inputObject: InputObject) => {
     console.log(inputObject);
-    const url = 'http://localhost:8000';
+    const url = process.env.BACKEND_SERVER_URL;
     const result = await fetch(url + '/get_directions', {
       method: 'POST',
       headers: {

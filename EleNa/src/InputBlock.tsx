@@ -1,7 +1,7 @@
 import './InputBlock.css';
 
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePlacesWidget, } from 'react-google-autocomplete';
 
 export interface InputObject {
@@ -17,11 +17,45 @@ export interface IInputBlockProps{
 };
 
 function InputBlock(props: IInputBlockProps) {
+  const sourceAutocompleteRef = useRef<google.maps.places.Autocomplete>();
+  const sourceInputRef = useRef<HTMLInputElement>(null);
+  const destAutocompleteRef = useRef<google.maps.places.Autocomplete>();
+  const destInputRef = useRef<HTMLInputElement>(null);
+  const options = {
+    fields: ["address_components", "geometry", "icon", "name"], // reference for fields: https://developers.google.com/maps/documentation/places/web-service/place-data-fields#places-api-fields-support
+   };
+
   const [source, setSource] = useState("Amherst");
   const [destination, setDestination] = useState("");
   const [minMax, setMinMax] = useState("");
   const [deviation, setDeviation] = useState(100);
   const [mode, setMode] = useState("bike"); 
+
+  useEffect(() => {
+    sourceAutocompleteRef.current = new google.maps.places.Autocomplete(
+      sourceInputRef.current!,
+      options
+    );
+
+    sourceAutocompleteRef.current.addListener("place_changed", async function() {
+      const place = await sourceAutocompleteRef.current?.getPlace();
+      console.log({place});
+      setSource(JSON.stringify(place));
+    })
+  }, [])
+
+  useEffect(() => {
+    destAutocompleteRef.current = new google.maps.places.Autocomplete(
+      destInputRef.current!,
+      options
+    );
+
+    destAutocompleteRef.current.addListener("place_changed", async function() {
+      const place = await destAutocompleteRef.current?.getPlace();
+      console.log({place});
+      setDestination(JSON.stringify(place));
+    })
+  }, [])
 
   const handleSourceChange = (e: any) => {
     setSource(e.target.value);
@@ -54,7 +88,7 @@ function InputBlock(props: IInputBlockProps) {
     <div >
       <div className='input-box-container'>
         <div>
-          <input type="text" id="source" name="source" placeholder='Source' className='input-box' onChange={handleSourceChange}></input>
+          <input type="text" id="source" name="source" placeholder='Source' className='input-box' onChange={handleSourceChange} ref={sourceInputRef!}></input>
           <div>
             <div className="input-header">
               Maximize/Minimize Elevation Gain
@@ -71,15 +105,13 @@ function InputBlock(props: IInputBlockProps) {
         <div className='radio-group'>
           <div className='radio'><input type="radio" value="BICYCLING" name="mode"  onClick={handleModeChange}/> Bike</div>
           <div className='radio'><input type="radio" value="DRIVING" name="mode" onClick={handleModeChange}/> Drive</div>
-          <div className='radio'><input type="radio" value="TRANSIT" name="mode" onClick={handleModeChange}/> Transit</div>
-          <div className='radio'><input type="radio" value="TWO_WHEELER" name="mode" onClick={handleModeChange}/> Two Wheeler</div>
           <div className='radio'><input type="radio" value="WALKING" name="mode" onClick={handleModeChange}/> Walk</div>
         </div>
       </div>
 
         </div>
         <div>
-          <input type="text" id="destination" name="destination" placeholder='Destination' className='input-box' onChange={handleDestinationChange}></input>
+          <input type="text" id="destination" name="destination" placeholder='Destination' className='input-box' onChange={handleDestinationChange} ref={destInputRef}></input>
           <div>
           <div className="input-header">
             Limit to % of Shortest Path
