@@ -1,7 +1,7 @@
 import logging
 import os.path
 
-import connectors.open_elevation_connector as open_cnc
+import connectors.elevation_connector as open_cnc
 import osmnx as ox
 
 
