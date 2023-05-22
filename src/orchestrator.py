@@ -48,24 +48,43 @@ class Orchestrator:
         between source and destination.
         """
         self.map_model = MapModel(src, dest, vehicle)
-        self.map_model.get_shortest_path()
-        self.map_model.get_path(min_max, deviation)
-        return self.map_model.get_results()
+        (
+            self.source_lat_long,
+            self.destination_lat_long,
+            self.shortest_path,
+            self.shortest_path_length,
+            self.shortest_path_elevation,
+            _,
+        ) = self.map_model.get_shortest_path()
+        (
+            self.elevation_path,
+            self.elevation_path_length,
+            self.elevation_path_elevation,
+            _,
+        ) = self.map_model.get_path(min_max, deviation)
+        return self.get_results()
 
-    # def get_results(self):
-    #     res = {
-    #         "shortest_path_directions": self.shortest_path,
-    #         "elevation_path_directions": self.elevation_path,
-    #         "source": [self.source_lat_long[0], self.source_lat_long[1]],
-    #         "destination": [self.destination_lat_long[0], self.destination_lat_long[1]],
-    #         "shortest_path_distance": self.shortest_path_length,
-    #         "elevation_path_distance": self.elevation_path_length,
-    #         "shortest_path_elevation": self.shortest_path_elevation,
-    #         "elevation_path_elevation": self.elevation_path_elevation,
-    #     }
-    #     # osmnx.plot_graph_routes(
-    #     #     self.city_map,
-    #     #     [self.shortest_path_debug, self.elevation_path_debug],
-    #     #     route_colors=["r", "b"],
-    #     # )
-    #     return res
+    def get_results(self):
+        res = {
+            "shortest_path_directions": self.shortest_path,
+            "elevation_path_directions": self.elevation_path,
+            "source": [
+                self.source_lat_long[0],
+                self.source_lat_long[1],
+            ],
+            # TODO is this being used?
+            "destination": [
+                self.destination_lat_long[0],
+                self.destination_lat_long[1],
+            ],
+            "shortest_path_distance": self.shortest_path_length,
+            "elevation_path_distance": self.elevation_path_length,
+            "shortest_path_elevation": self.shortest_path_elevation,
+            "elevation_path_elevation": self.elevation_path_elevation,
+        }
+        # osmnx.plot_graph_routes(
+        #     self.city_map,
+        #     [self.shortest_path_debug, self.elevation_path_debug],
+        #     route_colors=["r", "b"],
+        # )
+        return res
