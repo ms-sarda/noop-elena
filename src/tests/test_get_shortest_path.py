@@ -3,11 +3,7 @@ from networkx import MultiDiGraph
 
 from connectors.graph_utils import get_shortest_path
 
-#Unit test for connectors.graph_utils.get_shortest_path
-# Test case 1: Simple connected graph with 3 nodes
-def test_get_shortest_path():
-
-    
+def setup_city_map():
     city_map = MultiDiGraph()
     city_map.add_edge('A', 'B', length=1)
     city_map.add_edge('B', 'C', length=1)
@@ -27,6 +23,14 @@ def test_get_shortest_path():
     city_map.nodes['C']['street_count'] = 1
     city_map.nodes['C']['elevation'] = 0
 
+    return city_map
+
+# Test case 1: Simple traversal
+def test_get_shortest_path_simple():
+
+    
+    city_map = setup_city_map()
+
     shortest_path, shortest_path_length, shortest_elevation, path = get_shortest_path(city_map, ['A'], ['C'])
     print(shortest_path, shortest_path_length, shortest_elevation, path)
     assert path == ['A', 'B', 'C']
@@ -34,7 +38,13 @@ def test_get_shortest_path():
     assert shortest_elevation == 1
     assert shortest_path == [(0, 0), (1, 1), (2, 2)]
 
+#Test case 2: Source and destination nodes same
+def test_get_shortest_path_same_node():
+    city_map = setup_city_map()
+    source_node = ['A']
+    destination_node = ['A']
+    shortest_path, shortest_path_length, shortest_elevation, path = get_shortest_path(city_map, source_node, destination_node)
+    assert shortest_path_length == 0
+    assert shortest_elevation == 0
 
-    
-if __name__=="__main__":
-    test_get_shortest_path()
+
