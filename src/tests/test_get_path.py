@@ -88,7 +88,7 @@ def test_get_path_same_elevation():
     assert deviated_elevation == 1
     assert deviated_path == [(0, 0), (4,4), (3, 3)]
 
-# Test case 1: Maximize elevation with deviation of 50%
+# Test case 3: Maximize elevation with deviation of 50%
 def test_get_path_max_elevation():
 
     city_map = setup_city_map()

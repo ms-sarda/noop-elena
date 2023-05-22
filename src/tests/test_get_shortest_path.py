@@ -26,12 +26,12 @@ def setup_city_map():
 
 # Test case 1: Simple traversal
 def test_get_shortest_path_simple():
-
-    
     city_map = setup_city_map()
 
-    shortest_path, shortest_path_length, shortest_elevation, path = get_shortest_path(city_map, ['A'], ['C'])
-    print(shortest_path, shortest_path_length, shortest_elevation, path)
+    source_node = ['A']
+    destination_node = ['C']
+    shortest_path, shortest_path_length, shortest_elevation, path = get_shortest_path(city_map, source_node, destination_node)
+
     assert path == ['A', 'B', 'C']
     assert shortest_path_length == 2
     assert shortest_elevation == 1
@@ -43,6 +43,7 @@ def test_get_shortest_path_same_node():
     source_node = ['A']
     destination_node = ['A']
     shortest_path, shortest_path_length, shortest_elevation, path = get_shortest_path(city_map, source_node, destination_node)
+
     assert shortest_path_length == 0
     assert shortest_elevation == 0
 
