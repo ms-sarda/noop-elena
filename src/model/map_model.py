@@ -6,6 +6,7 @@ import connectors.osmnx_connector as ox_cnc
 
 
 # TODO this is not a model - it is in between model and controller. Rename?
+# Call it graph and put graph utils here?
 
 
 class MapModel:
@@ -17,20 +18,12 @@ class MapModel:
     ):
         self.vehicle = vehicle
         city_details = utils.parse_location(source)
-        self.city_map, in_cache = ox_cnc.get_city_map(
+        self.city_map = ox_cnc.get_city_map(
             city_details["city"],
             city_details["state"],
             city_details["country"],
             vehicle,
         )
-        if not in_cache:
-            ox_cnc.cache_map(
-                self.city_map,
-                city_details["city"],
-                city_details["state"],
-                city_details["country"],
-                vehicle,
-            )
         self.source_lat_long = ox_cnc.get_lat_long(source)
         self.destination_lat_long = ox_cnc.get_lat_long(destination)
 

@@ -82,6 +82,7 @@ class Orchestrator:
             "shortest_path_elevation": self.shortest_path_elevation,
             "elevation_path_elevation": self.elevation_path_elevation,
         }
+        # Used for debugging and printing graphs while testing
         # osmnx.plot_graph_routes(
         #     self.city_map,
         #     [self.shortest_path_debug, self.elevation_path_debug],
