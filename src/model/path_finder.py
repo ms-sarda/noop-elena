@@ -1,10 +1,8 @@
 import heapq
 import math
 
-import osmnx
 from networkx import MultiDiGraph
 
-import connectors.graph_utils as graph_utils
 import connectors.osmnx_connector as ox_cnc
 import connectors.utils as utils
 
