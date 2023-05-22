@@ -1,4 +1,3 @@
-import json
 from networkx import MultiDiGraph
 
 from connectors.graph_utils import get_shortest_path

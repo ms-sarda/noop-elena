@@ -39,7 +39,7 @@ def setup_city_map():
     return city_map
 
 # Test case 1: Minimize elevation with deviation of 50%
-def test_get_path_simple():
+def test_get_path_min_elevation():
 
     city_map = setup_city_map()
     source_node = ['A']
@@ -87,3 +87,27 @@ def test_get_path_same_elevation():
     assert deviated_path_length_result == 2
     assert deviated_elevation == 1
     assert deviated_path == [(0, 0), (4,4), (3, 3)]
+
+# Test case 1: Maximize elevation with deviation of 50%
+def test_get_path_max_elevation():
+
+    city_map = setup_city_map()
+    source_node = ['A']
+    destination_node = ['D']
+
+    #Add elevation to E
+    city_map.nodes['B']['elevation'] = 1
+
+    #Calculate shortest path
+    shortest_path, shortest_path_length, shortest_elevation, path = get_shortest_path(city_map, source_node, destination_node)
+
+    min_max = "max"
+    deviation = 150
+
+    deviated_path, deviated_path_length_result, deviated_elevation, deviated_path_debug = get_elevation_path(city_map, source_node, destination_node, min_max, deviation, shortest_path_length, path)
+
+    #The deviated path should be A -> B -> C -> D to minimize elevation
+    assert deviated_path_debug == ['A', 'B', 'C', 'D']
+    assert deviated_path_length_result == 3
+    assert deviated_elevation == 1
+    assert deviated_path == [(0, 0), (1, 1), (2, 2), (3, 3)]
