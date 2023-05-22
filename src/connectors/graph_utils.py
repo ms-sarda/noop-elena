@@ -7,6 +7,11 @@ from networkx import MultiDiGraph
 
 def get_shortest_path(city_map: MultiDiGraph, source_node, destination_node):
     # TODO Djikstra's implementation
+
+    #Check if source and destination nodes are the same
+    if source_node == destination_node:
+        return [], 0, 0, []
+    
     unvisitied = []
     # distance elevation node
     heapq.heappush(unvisitied, (0, 0, source_node[0]))
@@ -28,6 +33,7 @@ def get_shortest_path(city_map: MultiDiGraph, source_node, destination_node):
                 heapq.heappush(unvisitied, (current_cost, net_elevation, next_node))
 
     shortest_path_length = shortest_lengths[destination_node[0]][0]
+    print(shortest_lengths)
     shortest_path, path = build_path(city_map, shortest_lengths, source_node[0], destination_node[0])
     shortest_elevation = shortest_lengths[destination_node[0]][2]
     shortest_path = reduce_path(shortest_path)
