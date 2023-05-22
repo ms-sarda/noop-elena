@@ -16,6 +16,15 @@ export interface IInputBlockProps{
   onSubmit: (inputObject: InputObject) => void
 };
 
+export interface Address{
+  StreetNumber: String;
+  StreetName: String;
+  City: String;
+  State: String;
+  Zip: String;
+  Country: String;
+}
+
 function InputBlock(props: IInputBlockProps) {
   const sourceAutocompleteRef = useRef<google.maps.places.Autocomplete>();
   const sourceInputRef = useRef<HTMLInputElement>(null);
@@ -31,6 +40,55 @@ function InputBlock(props: IInputBlockProps) {
   const [deviation, setDeviation] = useState(100);
   const [mode, setMode] = useState("bike"); 
 
+  const formatAddress = (place: google.maps.places.PlaceResult) => {
+    const address = {} as Address;
+    var formattedAddress = "";
+    place.address_components?.forEach(function(c) {
+      switch(c.types[0]){
+          case 'street_number':
+              address.StreetNumber = c.short_name;
+              break;
+          case 'route':
+              address.StreetName = c.short_name;
+              break;
+          case 'neighborhood': case 'locality':    // North Hollywood or Los Angeles?
+              address.City = c.short_name;
+              break;
+          case 'administrative_area_level_1':     //  Note some countries don't have states
+              address.State = c.short_name;
+              break;
+          case 'postal_code':
+              address.Zip = c.short_name;
+              break;
+          case 'country':
+              address.Country = c.short_name;
+              break;
+      }
+      
+  });
+
+  if(address.StreetNumber != undefined){
+    formattedAddress = address.StreetNumber + ", ";
+  }
+  if(address.StreetName != undefined){
+    formattedAddress += address.StreetName + ", ";
+  }
+  if(address.City != undefined){
+    formattedAddress += address.City + ", ";
+  }
+  if(address.State != undefined){
+    formattedAddress += address.State + ", ";
+  }
+  if(address.Zip != undefined){
+    formattedAddress += address.Zip + ", ";
+  }
+  if(address.Country != undefined){
+    formattedAddress += address.Country;
+  }
+
+  return formattedAddress;
+  }
+
   useEffect(() => {
     sourceAutocompleteRef.current = new google.maps.places.Autocomplete(
       sourceInputRef.current!,
@@ -40,7 +98,7 @@ function InputBlock(props: IInputBlockProps) {
     sourceAutocompleteRef.current.addListener("place_changed", async function() {
       const place = await sourceAutocompleteRef.current?.getPlace();
       console.log({place});
-      setSource(JSON.stringify(place));
+      setSource(formatAddress(place!));
     })
   }, [])
 
@@ -53,7 +111,7 @@ function InputBlock(props: IInputBlockProps) {
     destAutocompleteRef.current.addListener("place_changed", async function() {
       const place = await destAutocompleteRef.current?.getPlace();
       console.log({place});
-      setDestination(JSON.stringify(place));
+      setDestination(formatAddress(place!));
     })
   }, [])
 
@@ -103,9 +161,9 @@ function InputBlock(props: IInputBlockProps) {
           Mode
         </div>
         <div className='radio-group'>
-          <div className='radio'><input type="radio" value="BICYCLING" name="mode"  onClick={handleModeChange}/> Bike</div>
-          <div className='radio'><input type="radio" value="DRIVING" name="mode" onClick={handleModeChange}/> Drive</div>
-          <div className='radio'><input type="radio" value="WALKING" name="mode" onClick={handleModeChange}/> Walk</div>
+          <div className='radio'><input type="radio" value="bike" name="mode"  onClick={handleModeChange}/> Bike</div>
+          <div className='radio'><input type="radio" value="drive" name="mode" onClick={handleModeChange}/> Drive</div>
+          <div className='radio'><input type="radio" value="walk" name="mode" onClick={handleModeChange}/> Walk</div>
         </div>
       </div>
 

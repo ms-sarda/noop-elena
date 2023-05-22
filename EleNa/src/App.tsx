@@ -3,7 +3,6 @@ import './InputBlock';
 import './MapPath'
 import MapPath from './MapPath';
 import InputBlock from './InputBlock';
-import Abc from './MapPath';
 import { InputObject } from './InputBlock';
 import { useState } from 'react';
 
@@ -26,7 +25,8 @@ function App() {
 
   const onSubmit = async (inputObject: InputObject) => {
     console.log(inputObject);
-    const url = process.env.BACKEND_SERVER_URL;
+    const url = "http://localhost:8000";
+    console.log(url);
     const result = await fetch(url + '/get_directions', {
       method: 'POST',
       headers: {
@@ -37,7 +37,7 @@ function App() {
         destination: inputObject.destination,
         min_max: inputObject.minMax,
         deviation: inputObject.deviation,
-        vehicle: inputObject.mode
+        transport: inputObject.mode
       })
     })
     const temp = await result.json();
