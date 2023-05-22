@@ -21,7 +21,13 @@ def get_parameters(json):
     vehicle : Mode of transport. Values accepted are "bike", "drive" or "walk"
 
     """
-    return json["source"], json["destination"], json["min_max"], json["deviation"], json["vehicle"]
+    return (
+        json["source"],
+        json["destination"],
+        json["min_max"],
+        json["deviation"],
+        json["vehicle"],
+    )
 
 
 @app.route("/get_directions", methods=["POST"])
@@ -78,14 +84,18 @@ def get_directions():
 
     - **elevation_path_elevation:** Elevation gain between the source and the destination when taking the new elevated path
     """
-    source, destination, min_max_route, percent_deviation, vehicle = get_parameters(request.json)
+    source, destination, min_max_route, percent_deviation, vehicle = get_parameters(
+        request.json
+    )
     orchestrator = Orchestrator()
 
-    return orchestrator.compute_path(source, destination, min_max_route, vehicle, percent_deviation)
+    return orchestrator.compute_path(
+        source, destination, min_max_route, vehicle, percent_deviation
+    )
 
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000, debug=True)
+# if __name__ == "__main__":
+# app.run(host="0.0.0.0", port=8000, debug=True)
 
 
 # FOR DEVELOPMENT AND DEBUGGING ONLY
@@ -99,7 +109,7 @@ def get_path():
         "667 N Pleasant St, Amherst, MA, USA",
         "max",
         "walk",
-        200,
+        150,
     )
     print("source: ", results["source"])
     print("destination: ", results["destination"])
@@ -107,3 +117,6 @@ def get_path():
     print("elevation_path_distance: ", results["elevation_path_distance"])
     print("shortest_path_elevation: ", results["shortest_path_elevation"])
     print("elevation_path_elevation: ", results["elevation_path_elevation"])
+
+
+get_path()
