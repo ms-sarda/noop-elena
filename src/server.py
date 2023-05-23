@@ -1,7 +1,9 @@
-from orchestrator import Orchestrator
+import logging
+
 from flask import Flask, request
 from flask_cors import CORS
-import logging
+
+from orchestrator import Orchestrator
 
 app = Flask(__name__)
 CORS(app)

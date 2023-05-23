@@ -1,8 +1,9 @@
 import logging
 import os.path
 
-import connectors.elevation_connector as open_cnc
 import osmnx as ox
+
+import connectors.elevation_connector as open_cnc
 
 
 def get_graph_nodes(graph, lat: float, long: float):

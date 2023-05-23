@@ -40,6 +40,7 @@ class Orchestrator:
             self.validate_src_dest(src_city_details, dest_city_details)
             return self.get_path(source, destination, min_max, transport, deviation)
         except Exception as e:
+            logging.error(e)
             return {"error": str(e)}
 
     def validate_input(self, source, destination, min_max, transport, deviation):
