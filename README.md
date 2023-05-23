@@ -228,8 +228,12 @@ json
 }
 ```
 
-## Shutting down
+## Shutting Down
 
 ### Shutting down the Server
 - Run the command `lsof -i TCP:8000`
 - For each listed process, kill the process using the command `kill -9 <pid>`
+
+## Limitations
+
+- As of now, our software only supports addresses that are in a certian format - `Street address, city, state, country`.
