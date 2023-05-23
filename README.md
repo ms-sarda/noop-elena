@@ -17,6 +17,12 @@ The high-level goal of this project is to develop a software system that determi
 
 
 ### Deploying the front end
+- In a new command line terminal, navigate to the `view` directory
+- Run the following command to install all the node modules:
+```npm install```
+- Run the following command to start a local frontend server on localhost:3000 -
+```npm start```
+- Hit `Ctrl+C` to stop this server.
 
 
 ## Testing the service
