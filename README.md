@@ -18,6 +18,7 @@ The high-level goal of this project is to develop a software system that determi
 
 
 ### Deploying the front end
+- Ensure you have node and npm installed on your machine
 - In a new command line terminal, navigate to the `view` directory
 - Run the following command to install all the node modules:
 ```npm install```
