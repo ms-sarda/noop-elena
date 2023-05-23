@@ -35,6 +35,10 @@ Once deployed, you should see a form
 - Finally enter the "Limit to % of Shortest Path". This value is greater than 100 and less than 200
 - Hit the "Get Path" button
 
+## Limitations
+- As of now, our software only supports addresses that are in a certain format - `Street address, city, state, country`.
+- The source and destination need to be in the same city.
+
 ## Testing the service
 
 ### Run Unit Tests
