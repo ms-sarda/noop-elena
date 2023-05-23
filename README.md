@@ -9,6 +9,7 @@ The high-level goal of this project is to develop a software system that determi
 ## Deploying the Service
 
 ### Deploying the Server
+- Ensure you have python3 installed on your machine.
 - Create a new virutal environment and install all dependencies using the following command:
 ``` pip install requirements.txt```
 - In a new command line terminal run the following the command, from the project root:
