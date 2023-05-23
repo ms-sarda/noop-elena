@@ -18,7 +18,8 @@ The high-level goal of this project is to develop a software system that determi
 
 ## Testing the service
 
-### Run Py-Test
+### Run Unit Tests
+- We have used Pytest to implement unit testing functions
 - In a new command line terminal run the following the command, from the project root:
 `pytest`
 
