@@ -1,6 +1,5 @@
 from networkx import MultiDiGraph
-
-from connectors.graph_utils import get_shortest_path, get_elevation_path
+from model.path_finder import PathFinder
 
 def setup_city_map():
     city_map = MultiDiGraph()
@@ -48,13 +47,18 @@ def test_get_path_min_elevation():
     #Add elevation to E
     city_map.nodes['E']['elevation'] = 1
 
+    source = "129 Brittany Manor Drive, Amherst, MA, USA"
+    destination = "79 Brighton Ave, Allston, MA, USA"
+    vehicle = "walk"
+
+    path_finder = PathFinder(source, destination, vehicle)
     #Calculate shortest path
-    shortest_path, shortest_path_length, shortest_elevation, path = get_shortest_path(city_map, source_node, destination_node)
+    shortest_path, shortest_path_length, shortest_elevation, path = path_finder.get_shortest_path_using_dijkstra(city_map, source_node, destination_node)
 
     min_max = "min"
     deviation = 150
 
-    deviated_path, deviated_path_length_result, deviated_elevation, deviated_path_debug = get_elevation_path(city_map, source_node, destination_node, min_max, deviation, shortest_path_length)
+    deviated_path, deviated_path_length_result, deviated_elevation, deviated_path_debug = path_finder.get_elevation_path_using_modified_dijkstra(city_map, source_node, destination_node, min_max, deviation, shortest_path_length)
 
     #The deviated path should be A -> B -> C -> D to minimize elevation
     assert deviated_path_debug == ['A', 'B', 'C', 'D']
@@ -74,12 +78,17 @@ def test_get_path_same_elevation():
     source_node = ['A']
     destination_node = ['D']
 
-    shortest_path, shortest_path_length, shortest_elevation, path = get_shortest_path(city_map, source_node, destination_node)
+    source = "129 Brittany Manor Drive, Amherst, MA, USA"
+    destination = "79 Brighton Ave, Allston, MA, USA"
+    vehicle = "walk"
+
+    path_finder = PathFinder(source, destination, vehicle)
+    shortest_path, shortest_path_length, shortest_elevation, path = path_finder.get_shortest_path_using_dijkstra(city_map, source_node, destination_node)
 
     min_max = "min"
     deviation = 150
 
-    deviated_path, deviated_path_length_result, deviated_elevation, deviated_path_debug = get_elevation_path(city_map, source_node, destination_node, min_max, deviation, shortest_path_length)
+    deviated_path, deviated_path_length_result, deviated_elevation, deviated_path_debug = path_finder.get_elevation_path_using_modified_dijkstra(city_map, source_node, destination_node, min_max, deviation, shortest_path_length)
     print(deviated_path, deviated_path_length_result, deviated_elevation, deviated_path_debug)
 
     #The deviated path should be A -> E -> D to minize distance as the elevation is the same
@@ -98,13 +107,18 @@ def test_get_path_max_elevation():
     #Add elevation to E
     city_map.nodes['B']['elevation'] = 1
 
+    source = "129 Brittany Manor Drive, Amherst, MA, USA"
+    destination = "79 Brighton Ave, Allston, MA, USA"
+    vehicle = "walk"
+
+    path_finder = PathFinder(source, destination, vehicle)
     #Calculate shortest path
-    shortest_path, shortest_path_length, shortest_elevation, path = get_shortest_path(city_map, source_node, destination_node)
+    shortest_path, shortest_path_length, shortest_elevation, path = path_finder.get_shortest_path_using_dijkstra(city_map, source_node, destination_node)
 
     min_max = "max"
     deviation = 150
 
-    deviated_path, deviated_path_length_result, deviated_elevation, deviated_path_debug = get_elevation_path(city_map, source_node, destination_node, min_max, deviation, shortest_path_length)
+    deviated_path, deviated_path_length_result, deviated_elevation, deviated_path_debug = path_finder.get_elevation_path_using_modified_dijkstra(city_map, source_node, destination_node, min_max, deviation, shortest_path_length)
 
     #The deviated path should be A -> B -> C -> D to minimize elevation
     assert deviated_path_debug == ['A', 'B', 'C', 'D']
