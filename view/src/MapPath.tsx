@@ -24,7 +24,7 @@ function MapPath(props: IServerResponse) {
     useEffect(() => {
         const waypoints = props.waypoints.map(p => ({
             location: new google.maps.LatLng(p[0], p[1]),
-            stopover: true
+            stopover: false
         }));
 
         if(waypoints.length >= 2) {
@@ -63,12 +63,6 @@ function MapPath(props: IServerResponse) {
         containerElement={<div style={{ height: `350px` }}/>}
         mapElement={<div style={{height: `100%`}}/>}
         />
-        {props.distance > 0 &&<div className='metrics'>
-            Distance: {props.distance}
-        </div>}
-        {props.elevation > 0 && <div  className='metrics'>
-            Elevation: {props.elevation}
-        </div>}
         </div>
     );
 }

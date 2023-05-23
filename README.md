@@ -9,28 +9,32 @@ The high-level goal of this project is to develop a software system that determi
 ## Deploying the Service
 
 ### Deploying the Server
+- Create a new virutal environment and install all dependencies using the following command:
+``` pip install requirements.txt```
 - In a new command line terminal run the following the command, from the project root:
-- `sh run_server.sh`
+ ```sh run_server.sh```
 - This will block the terminal for port 8000
 
 
 ### Deploying the front end
 
+
 ## Testing the service
 
 ### Run Unit Tests
 - We have used Pytest to implement unit testing functions
-- In a new command line terminal run the following the command, from the project root:
+- From your virtualenv run the following command (make sure to run it from project root) :
 `pytest`
 
 ### Testing the backend
 - Deploy the backend using the commands above
 - Using postman or command line, hit the following curl request
 
-commandline
-curl --location --request POST '0.0.0.0:8000/get_directions' \
+command line
+` curl --location --request POST '0.0.0.0:8000/get_directions' \
 --header 'Content-Type: application/json' \
 --data-raw '{"source":"129 Brittany Manor Dr, Amherst, MA, US","destination":"136 Gray St, Amherst, MA, US","min_max":"max","deviation":"125","transport":"bike"}
+`
 
 
 - You should get a response similar to
