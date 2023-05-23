@@ -23,7 +23,7 @@ The high-level goal of this project is to develop a software system that determi
 
 ### Run Unit Tests
 - We have used Pytest to implement unit testing functions
-- In a new command line terminal run the following the command, from the project root:
+- From your virtualenv run the following command (make sure to run it from project root) :
 `pytest`
 
 ### Testing the backend
