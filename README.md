@@ -20,7 +20,7 @@ The high-level goal of this project is to develop a software system that determi
 
 ### Run Py-Test
 - In a new command line terminal run the following the command, from the project root:
-- `pytest`
+`pytest`
 
 ### Testing the backend
 - Deploy the backend using the commands above
