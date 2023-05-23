@@ -49,7 +49,7 @@ class PathFinder:
             self.shortest_path,
             self.shortest_path_length,
             self.shortest_path_elevation,
-            shortest_path_debug,  # TODO what does this debug do?
+            shortest_path_debug,
         )
 
     def get_elevation_path(self, min_max: str = "max", deviation: float = 0.0):

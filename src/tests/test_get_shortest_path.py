@@ -1,6 +1,6 @@
 from networkx import MultiDiGraph
 
-from connectors.graph_utils import get_shortest_path
+from model.path_finder import PathFinder
 
 def setup_city_map():
     city_map = MultiDiGraph()
@@ -30,7 +30,13 @@ def test_get_shortest_path_simple():
 
     source_node = ['A']
     destination_node = ['C']
-    shortest_path, shortest_path_length, shortest_elevation, path = get_shortest_path(city_map, source_node, destination_node)
+
+    source = "129 Brittany Manor Drive, Amherst, MA, USA"
+    destination = "79 Brighton Ave, Allston, MA, USA"
+    vehicle = "walk"
+
+    path_finder = PathFinder(source, destination, vehicle)
+    shortest_path, shortest_path_length, shortest_elevation, path = path_finder.get_shortest_path_using_dijkstra(city_map, source_node, destination_node)
 
     assert path == ['A', 'B', 'C']
     assert shortest_path_length == 2
@@ -42,7 +48,13 @@ def test_get_shortest_path_same_node():
     city_map = setup_city_map()
     source_node = ['A']
     destination_node = ['A']
-    shortest_path, shortest_path_length, shortest_elevation, path = get_shortest_path(city_map, source_node, destination_node)
+
+    source = "129 Brittany Manor Drive, Amherst, MA, USA"
+    destination = "79 Brighton Ave, Allston, MA, USA"
+    vehicle = "walk"
+
+    path_finder = PathFinder(source, destination, vehicle)
+    shortest_path, shortest_path_length, shortest_elevation, path = path_finder.get_shortest_path_using_dijkstra(city_map, source_node, destination_node)
 
     assert shortest_path_length == 0
     assert shortest_elevation == 0
