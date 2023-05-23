@@ -26,6 +26,14 @@ The high-level goal of this project is to develop a software system that determi
 ```npm start```
 - Hit `Ctrl+C` to stop this server.
 
+## Using the Application
+Once deployed, you should see a form
+- In the source and destination section, fill in your desired source and destination.
+- As of now, our software only supports addresses that are in a certain format - `Street address, city, state, country`.
+- Select "Maximise/Minimise Elevation Gain" radio button
+- Select "Mode" of travel
+- Finally enter the "Limit to % of Shortest Path". This value is greater than 100 and less than 200
+- Hit the "Get Path" button
 
 ## Testing the service
 
@@ -233,7 +241,3 @@ json
 ### Shutting down the Server
 - Run the command `lsof -i TCP:8000`
 - For each listed process, kill the process using the command `kill -9 <pid>`
-
-## Limitations
-
-- As of now, our software only supports addresses that are in a certian format - `Street address, city, state, country`.
