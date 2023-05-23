@@ -59,3 +59,11 @@
   font-family: 'Montserrat';
   color:#626060
 }
+
+.error-box {
+  background-color: #f8baba;
+  font-family: 'Montserrat';
+  color: black;
+  border-radius: 5px;
+  padding: 3px;
+}

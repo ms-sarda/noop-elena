@@ -25,11 +25,13 @@ function App() {
   const [elevationDistance, setElevationDistance] = useState(0);
   const [shortestElevation, setShortestElevation] = useState(0); 
   const [elevationElevation, setElevationElevation] = useState(0); 
+  const [error, setError] = useState();
 
   const onSubmit = async (inputObject: InputObject) => {
     console.log(inputObject);
     const url = "http://localhost:8000";
     console.log(url);
+    setError(undefined);
     const result = await fetch(url + '/get_directions', {
       method: 'POST',
       headers: {
@@ -44,15 +46,20 @@ function App() {
       })
     })
     const temp = await result.json();
-    //let temp: IServerResponse = JSON.parse(res);
-    setSource(temp.source);
-    setDestination(temp.destination);
-    setShortestWaypoints(temp.shortest_path_directions.slice(0, 24));
-    setElevationWaypoints(temp.elevation_path_directions.slice(0, 24));
-    setShortestDistance(Math.trunc(temp.shortest_path_distance));
-    setShortestElevation(Math.trunc(temp.shortest_path_elevation));
-    setElevationDistance(Math.trunc(temp.elevation_path_distance));
-    setElevationElevation(Math.trunc(temp.elevation_path_elevation));
+    if(temp.error == undefined){
+      setSource(temp.source);
+      setDestination(temp.destination);
+      setShortestWaypoints(temp.shortest_path_directions.slice(0, 24));
+      setElevationWaypoints(temp.elevation_path_directions.slice(0, 24));
+      setShortestDistance(Math.trunc(temp.shortest_path_distance));
+      setShortestElevation(Math.trunc(temp.shortest_path_elevation));
+      setElevationDistance(Math.trunc(temp.elevation_path_distance));
+      setElevationElevation(Math.trunc(temp.elevation_path_elevation));
+    }
+    else{
+      setError(temp.error)
+    }
+    
   }
 
   return (
@@ -74,9 +81,11 @@ function App() {
           <div className="inputs">
             <InputBlock onSubmit={onSubmit}/>
           </div>
+          {error == undefined && <div>
           <div className='input-header'>
             Shortest Path
           </div>
+          
           {shortestDistance >= 0 &&<div className='metrics'>
               Distance: {shortestDistance} m
               </div>}
@@ -99,8 +108,13 @@ function App() {
             <div>
               <MapPath source={source} destination={destination} waypoints={elevationWaypoints} distance={elevationDistance} elevation={elevationElevation} />
             </div>
-              
-          
+          </div> }
+          {
+            error != undefined && 
+            <div className='error-box'>
+                {error}
+            </div>
+          }
         </div>
       </div>
     </div>
