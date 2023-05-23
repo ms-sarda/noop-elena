@@ -68,7 +68,7 @@ function InputBlock(props: IInputBlockProps) {
   });
 
   if(address.StreetNumber != undefined){
-    formattedAddress = address.StreetNumber + ", ";
+    formattedAddress = address.StreetNumber + " ";
   }
   if(address.StreetName != undefined){
     formattedAddress += address.StreetName + ", ";
@@ -78,9 +78,6 @@ function InputBlock(props: IInputBlockProps) {
   }
   if(address.State != undefined){
     formattedAddress += address.State + ", ";
-  }
-  if(address.Zip != undefined){
-    formattedAddress += address.Zip + ", ";
   }
   if(address.Country != undefined){
     formattedAddress += address.Country;
