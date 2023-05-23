@@ -9,6 +9,7 @@ The high-level goal of this project is to develop a software system that determi
 ## Deploying the Service
 
 ### Deploying the Server
+- Ensure you have python3 installed on your machine.
 - Create a new virutal environment and install all dependencies using the following command:
 ``` pip install requirements.txt```
 - In a new command line terminal run the following the command, from the project root:
@@ -17,7 +18,22 @@ The high-level goal of this project is to develop a software system that determi
 
 
 ### Deploying the front end
+- Ensure you have node and npm installed on your machine
+- In a new command line terminal, navigate to the `view` directory
+- Run the following command to install all the node modules:
+```npm install```
+- Run the following command to start a local frontend server on localhost:3000 -
+```npm start```
+- Hit `Ctrl+C` to stop this server.
 
+## Using the Application
+Once deployed, you should see a form
+- In the source and destination section, fill in your desired source and destination.
+- As of now, our software only supports addresses that are in a certain format - `Street address, city, state, country`.
+- Select "Maximise/Minimise Elevation Gain" radio button
+- Select "Mode" of travel
+- Finally enter the "Limit to % of Shortest Path". This value is greater than 100 and less than 200
+- Hit the "Get Path" button
 
 ## Testing the service
 
@@ -220,7 +236,7 @@ json
 }
 ```
 
-## Shutting down
+## Shutting Down
 
 ### Shutting down the Server
 - Run the command `lsof -i TCP:8000`
