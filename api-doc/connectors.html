@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>connectors package &mdash; Elena-Noop  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="model package" href="model.html" />
+    <link rel="prev" title="src" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Elena-Noop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">connectors package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-connectors.elevation_connector">connectors.elevation_connector module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#connectors.elevation_connector.add_elevation_to_graph"><code class="docutils literal notranslate"><span class="pre">add_elevation_to_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#connectors.elevation_connector.add_node_elevations_open_elevation"><code class="docutils literal notranslate"><span class="pre">add_node_elevations_open_elevation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-connectors.osmnx_connector">connectors.osmnx_connector module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#connectors.osmnx_connector.cache_map"><code class="docutils literal notranslate"><span class="pre">cache_map()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#connectors.osmnx_connector.generate_city_map"><code class="docutils literal notranslate"><span class="pre">generate_city_map()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#connectors.osmnx_connector.generate_map_filepath"><code class="docutils literal notranslate"><span class="pre">generate_map_filepath()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#connectors.osmnx_connector.get_city_map"><code class="docutils literal notranslate"><span class="pre">get_city_map()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#connectors.osmnx_connector.get_graph_nodes"><code class="docutils literal notranslate"><span class="pre">get_graph_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#connectors.osmnx_connector.get_lat_long"><code class="docutils literal notranslate"><span class="pre">get_lat_long()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#connectors.osmnx_connector.get_map_from_cache"><code class="docutils literal notranslate"><span class="pre">get_map_from_cache()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-connectors.utils">connectors.utils module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#connectors.utils.parse_location"><code class="docutils literal notranslate"><span class="pre">parse_location()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-connectors">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="model.html">model package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orchestrator.html">orchestrator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">server module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Elena-Noop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">src</a></li>
+      <li class="breadcrumb-item active">connectors package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/connectors.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="connectors-package">
+<h1>connectors package<a class="headerlink" href="#connectors-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-connectors.elevation_connector">
+<span id="connectors-elevation-connector-module"></span><h2>connectors.elevation_connector module<a class="headerlink" href="#module-connectors.elevation_connector" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="connectors.elevation_connector.add_elevation_to_graph">
+<span class="sig-prename descclassname"><span class="pre">connectors.elevation_connector.</span></span><span class="sig-name descname"><span class="pre">add_elevation_to_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#connectors.elevation_connector.add_elevation_to_graph" title="Permalink to this definition"></a></dt>
+<dd><p>Adds elevation information to graph nodes. If API key is provided, fetches informatin from Google Elevation API.
+Otherwise from Open Elevation API</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>graph</strong> (<em>MultiDiGraph</em>) – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>G</strong></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>MultiDiGraph</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="connectors.elevation_connector.add_node_elevations_open_elevation">
+<span class="sig-prename descclassname"><span class="pre">connectors.elevation_connector.</span></span><span class="sig-name descname"><span class="pre">add_node_elevations_open_elevation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_locations_per_batch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">170</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pause_duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#connectors.elevation_connector.add_node_elevations_open_elevation" title="Permalink to this definition"></a></dt>
+<dd><p>Note: This code has been taken from OSMnx open-source library. Since
+Google Maps is a paid service, this code replicates the same logic
+but gets elevation data from Open-Elevation instead of Google.</p>
+<p>Add <cite>elevation</cite> (meters) attribute to each node using a web service.</p>
+<p>By default, this uses the Google Maps Elevation API but you can optionally
+use an equivalent API with the same interface and response format, such as
+Open Topo Data. The Google Maps Elevation API requires an API key but
+other providers may not.</p>
+<p>For a free local alternative see the <cite>add_node_elevations_raster</cite>
+function. See also the <cite>add_edge_grades</cite> function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>G</strong> (<em>networkx.MultiDiGraph</em>) – input graph</p></li>
+<li><p><strong>api_key</strong> (<em>string</em>) – a valid API key</p></li>
+<li><p><strong>max_locations_per_batch</strong> (<em>int</em>) – max number of coordinate pairs to submit in each API call (if this is
+too high, the server will reject the request because its character
+limit exceeds the max allowed)</p></li>
+<li><p><strong>pause_duration</strong> (<em>float</em>) – time to pause between API calls, which can be increased if you get
+rate limited</p></li>
+<li><p><strong>precision</strong> (<em>int</em>) – decimal precision to round elevation values</p></li>
+<li><p><strong>url_template</strong> (<em>string</em>) – a URL string template for the API endpoint, containing exactly two
+parameters: <cite>locations</cite> and <cite>key</cite>; for example, for Open Topo Data:
+“<a class="reference external" href="https://api.opentopodata.org/v1/aster30m">https://api.opentopodata.org/v1/aster30m</a>?locations={}&amp;key={}”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>G</strong> – graph with node elevation attributes</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>networkx.MultiDiGraph</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-connectors.osmnx_connector">
+<span id="connectors-osmnx-connector-module"></span><h2>connectors.osmnx_connector module<a class="headerlink" href="#module-connectors.osmnx_connector" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="connectors.osmnx_connector.cache_map">
+<span class="sig-prename descclassname"><span class="pre">connectors.osmnx_connector.</span></span><span class="sig-name descname"><span class="pre">cache_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">city</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'USA'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'walk'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#connectors.osmnx_connector.cache_map" title="Permalink to this definition"></a></dt>
+<dd><p>Cache a newly generated map for efficient perf. The file is saved in graphml format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>G</strong> (<em>MultiDiGraph</em>) – </p></li>
+<li><p><strong>city</strong> (<em>City name</em>) – </p></li>
+<li><p><strong>state</strong> (<em>State name</em>) – </p></li>
+<li><p><strong>country</strong> (<em>Country name</em>) – </p></li>
+<li><p><strong>vehicle</strong> (<em>Vehicle name</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="connectors.osmnx_connector.generate_city_map">
+<span class="sig-prename descclassname"><span class="pre">connectors.osmnx_connector.</span></span><span class="sig-name descname"><span class="pre">generate_city_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">city</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'USA'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'walk'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#connectors.osmnx_connector.generate_city_map" title="Permalink to this definition"></a></dt>
+<dd><p>Generates the city map using the OSMnx library</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>city</strong> (<em>City name</em>) – </p></li>
+<li><p><strong>state</strong> (<em>State name</em>) – </p></li>
+<li><p><strong>country</strong> (<em>Country name</em>) – </p></li>
+<li><p><strong>vehicle</strong> (<em>Vehicle name</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>G</strong> – Returns map of the city</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>MultiDiGraph</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="connectors.osmnx_connector.generate_map_filepath">
+<span class="sig-prename descclassname"><span class="pre">connectors.osmnx_connector.</span></span><span class="sig-name descname"><span class="pre">generate_map_filepath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">city</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'USA'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'walk'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#connectors.osmnx_connector.generate_map_filepath" title="Permalink to this definition"></a></dt>
+<dd><p>Generates the file path at which the generated graph is to be stored</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>city</strong> (<em>City name</em>) – </p></li>
+<li><p><strong>state</strong> (<em>State name</em>) – </p></li>
+<li><p><strong>country</strong> (<em>Country name</em>) – </p></li>
+<li><p><strong>vehicle</strong> (<em>Vehicle name</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>str</em></p></li>
+<li><p><em>filename that will be used to cache and fetch from cache</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="connectors.osmnx_connector.get_city_map">
+<span class="sig-prename descclassname"><span class="pre">connectors.osmnx_connector.</span></span><span class="sig-name descname"><span class="pre">get_city_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">city</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'USA'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'walk'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#connectors.osmnx_connector.get_city_map" title="Permalink to this definition"></a></dt>
+<dd><p>Returns city map with elevations added from Open-Elevation/Google Maps.
+Loads the map from cache if available. If the map is generated, the new
+map is cached.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>city</strong> (<em>City name</em>) – </p></li>
+<li><p><strong>state</strong> (<em>State name</em>) – </p></li>
+<li><p><strong>country</strong> (<em>Country name</em>) – </p></li>
+<li><p><strong>vehicle</strong> (<em>Vehicle name</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>city_graph</strong> – Returns map of the city</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>MultiDiGraph</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="connectors.osmnx_connector.get_graph_nodes">
+<span class="sig-prename descclassname"><span class="pre">connectors.osmnx_connector.</span></span><span class="sig-name descname"><span class="pre">get_graph_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">long</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#connectors.osmnx_connector.get_graph_nodes" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a MultiDiGraph node nearest to input latitude and longitude. Also returns distance between node and
+latitude and longitude</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>The MultiDiGraph</em><em> of </em><em>the city</em>) – </p></li>
+<li><p><strong>lat</strong> (<em>Latitude</em><em> of </em><em>the location</em>) – </p></li>
+<li><p><strong>long</strong> (<em>Longitude</em><em> of </em><em>the location</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>node</strong> (<em>int</em>) – Node id</p></li>
+<li><p><strong>distance</strong> (<em>float</em>) – distance between latitude and longitude and nearest node</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="connectors.osmnx_connector.get_lat_long">
+<span class="sig-prename descclassname"><span class="pre">connectors.osmnx_connector.</span></span><span class="sig-name descname"><span class="pre">get_lat_long</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#connectors.osmnx_connector.get_lat_long" title="Permalink to this definition"></a></dt>
+<dd><p>Get lat-long for the given address</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>address</strong> (<em>str</em>) – Address for which we need lat and long</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>tuple</em></p></li>
+<li><p><em>Latitude and Longitude</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="connectors.osmnx_connector.get_map_from_cache">
+<span class="sig-prename descclassname"><span class="pre">connectors.osmnx_connector.</span></span><span class="sig-name descname"><span class="pre">get_map_from_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">city</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#connectors.osmnx_connector.get_map_from_cache" title="Permalink to this definition"></a></dt>
+<dd><p>Loads a city map if it is already cached</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>city</strong> (<em>City name</em>) – </p></li>
+<li><p><strong>state</strong> (<em>State name</em>) – </p></li>
+<li><p><strong>country</strong> (<em>Country name</em>) – </p></li>
+<li><p><strong>vehicle</strong> (<em>Vehicle name</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>g</strong> – Returns map of the city</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>MultiDiGraph</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-connectors.utils">
+<span id="connectors-utils-module"></span><h2>connectors.utils module<a class="headerlink" href="#module-connectors.utils" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="connectors.utils.parse_location">
+<span class="sig-prename descclassname"><span class="pre">connectors.utils.</span></span><span class="sig-name descname"><span class="pre">parse_location</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#connectors.utils.parse_location" title="Permalink to this definition"></a></dt>
+<dd><p>Parses the input location to fetch</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>location</strong> (<em>str</em>) – Street address in the format: Street Address, City, State, Country</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>result</strong> – Dictionary with, city, state and country information</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-connectors">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-connectors" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="src" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="model.html" class="btn btn-neutral float-right" title="model package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jai, Nidhi, Pragya, Saksham.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
