@@ -31,7 +31,9 @@ def add_elevation_to_graph(graph):
             logging.info("Fetching Elevation information from Open Elevation")
         else:
             G = ox.add_node_elevations_google(graph, api_key)
-            logging.info("Found API_KEY. Fetching Elevation information from Google Elevation API")
+            logging.info(
+                "Found API_KEY. Fetching Elevation information from Google Elevation API"
+            )
         G = ox.elevation.add_edge_grades(G)
         return G
     except Exception as e:
@@ -40,11 +42,15 @@ def add_elevation_to_graph(graph):
 
 def add_node_elevations_open_elevation(
     G,
-    max_locations_per_batch=180,
-    pause_duration=0.02,
+    max_locations_per_batch=170,
+    pause_duration=0.05,
     precision=3,
 ):  # pragma: no cover
     """
+    Note: This code has been taken from OSMnx open-source library. Since
+    Google Maps is a paid service, this code replicates the same logic
+    but gets elevation data from Open-Elevation instead of Google.
+
     Add `elevation` (meters) attribute to each node using a web service.
 
     By default, this uses the Google Maps Elevation API but you can optionally
@@ -112,9 +118,9 @@ def add_node_elevations_open_elevation(
                 utils.log(f"Requesting node elevations: {url}")
                 time.sleep(pause_duration)
                 response = requests.get(url)
-                # if response.status_code == 200:
-                response_json = response.json()
-                downloader._save_to_cache(url, response_json, response.status_code)
+                if response.status_code == 200:
+                    response_json = response.json()
+                    downloader._save_to_cache(url, response_json, response.status_code)
             except Exception as e:
                 utils.log(e)
                 utils.log(
