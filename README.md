@@ -34,6 +34,7 @@ curl --location --request POST '0.0.0.0:8000/get_directions' \
 
 - You should get a response similar to
 json
+```
 {
     "destination": [
         42.38055235,
@@ -212,7 +213,7 @@ json
         -72.528342
     ]
 }
-
+```
 
 ## Shutting down
 
