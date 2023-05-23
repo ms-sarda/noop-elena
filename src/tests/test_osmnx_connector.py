@@ -40,3 +40,55 @@ def test_get_graph_nodes():
     assert destination_node == (2264382590, 0.7237707786983189)
 
 #Test Case 3: Get city map for the given address
+def test_get_city_map():
+    source = "129 Brittany Manor Drive, Amherst, MA, USA"
+    destination = "667 N Pleasant St, Amherst, MA, USA"
+    transportation = "walk"
+
+    city_details = utils.parse_location(source)
+
+    city_map = ox_cnc.get_city_map(
+            city_details["city"],
+            city_details["state"],
+            city_details["country"],
+            transportation,
+        )
+    
+    assert city_map.number_of_nodes() == 7400
+    assert city_map.number_of_edges() == 20622
+
+#Test Case 4: Generate city map for the given address if not present in cache
+def test_generate_city_map():
+    source = "129 Brittany Manor Drive, Amherst, MA, USA"
+    destination = "149 Brittany Manor Drive, Amherst, MA, USA"
+    transportation = "walk"
+
+    city_details = utils.parse_location(source)
+
+    city_map = ox_cnc.generate_city_map(
+            city_details["city"],
+            city_details["state"],
+            city_details["country"],
+            transportation,
+        )
+    
+    assert city_map.number_of_nodes() == 7400
+    assert city_map.number_of_edges() == 20622
+
+#Test Case 5: Generate city map for the given address if present in cache
+def test_generate_city_map_from_cache():
+    source = "129 Brittany Manor Drive, Amherst, MA, USA"
+    destination = "667 N Pleasant St, Amherst, MA, USA"
+    transportation = "walk"
+
+    city_details = utils.parse_location(source)
+
+    city_map = ox_cnc.get_map_from_cache(
+            city_details["city"],
+            city_details["state"],
+            city_details["country"],
+            transportation,
+        )
+    
+    assert city_map.number_of_nodes() == 7400
+    assert city_map.number_of_edges() == 20622
